@@ -1,0 +1,33 @@
+
+\documentclass[../../main.tex]{subfiles}
+\begin{document}
+
+\chapter{State-of-the-Art}
+\label{chap__related_work}
+
+%% *** Introduction
+\subimport*{\main/Part_1_Introduction/related_work/}{introduction}
+
+%% *** Definitions
+\subimport*{\main/Part_1_Introduction/related_work/}{definitions}
+
+%% *** Incentives
+\subimport*{\main/Part_1_Introduction/related_work/}{related_incentives}
+
+%% *** Resource Allocation
+\subimport*{\main/Part_1_Introduction/related_work/}{related_allocation}
+
+%% *** Trust
+\subimport*{\main/Part_1_Introduction/related_work/}{related_trust}
+
+% *** Section: Conclusion
+%\subimport*{\main/Part_1_Introduction/related_work/}{conclusion}
+
+\iftoggle{enable_chapter_bib} { %%%
+	\printbibliography
+}
+
+\cleardoublepage
+
+% that's all folks
+\end{document}

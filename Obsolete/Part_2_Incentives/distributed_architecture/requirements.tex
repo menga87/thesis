@@ -1,0 +1,47 @@
+
+
+% Section: REQUIREMENTS
+\subsection{Requirements for a Community Cloud System}
+\label{sec:requirements}
+
+A community cloud is a cloud infrastructure which is run and managed independently by various community network members. The community cloud bridges different aspects in the gap between the public cloud, 
+the general-purpose cloud (available to everyone), and the private cloud (available to only a limited set of users with user-specific services). 
+For the community cloud management system, we are targeting the Guifi.net community network, and we consider the following requirements to be a foundation and guideline for its design. 
+We believe that, if addressed, among other challenges, these requirements can largely provide a cloud system that is deployed and adopted successfully by the community.
+
+
+\begin{itemize}
+
+\item Security
+\\Privacy and security are of great importance in community clouds, as users share their resources and data between them. There are many security challenges that need to be addressed for ensuring users trust in the system, and with multiple independent cloud providers from the community, security becomes even more important in a community cloud. 
+For instance, the data and applications running on different cloud systems should be protected from unauthorised access.
+
+\item Self-Management
+\\ The highly distributed nature, typically wireless environment, and heterogeneity of community networks require that a community cloud platform be self-managed on the cloud and node level in order to continue providing services without disruption when nodes go offline. Self-management should also help in the coordination between various cloud owners that become part of a federated community cloud. The most relevant aspects for the desired framework are self-configuration and self-healing.
+
+\item Utility
+\\The bottom-up nature of community networks drives its evolution and development. As a result, the community cloud should provide applications that are valuable for the specific user community. Nevertheless, there exist applications necessary for the majority of community networks, 
+%as we have presented in Section \ref{subsec:history}, 
+such as Internet connectivity, file sharing, video streaming, and VoIP services. Successful applications will increase the usage, strengthening the value of the community cloud, thus motivating its maintenance and upgrade.
+
+\item Ease of Use
+\\Most of the users of the community cloud will not be proficient in cloud technologies; therefore setting up nodes for deployment and managing cloud software should be simple and straightforward. The easier it is for users to join, participate, and manage their resources in the community cloud, the more this cloud model will be adopted.
+
+\item Incentives for Contribution
+\\The community cloud builds upon the collective efforts of the members of the community networks and requires the contribution of the volunteers in terms of their time, knowledge, and effort as well as computing, storage, and network resources. 
+For community clouds to be sustainable, incentive mechanisms are needed to encourage users to actively contribute towards the system.
+
+\item Support for Heterogeneity
+\\As previously explained, community networks are very heterogeneous in diverse levels. Thus, the hardware and software used by members in a community cloud can have varying characteristics, and the cloud system should handle this seamlessly.
+
+
+\item Standard Application Programming Interfaces (API)
+\\The cloud system facilitates the ability of application programmers to transparently design their applications for the underlying heterogeneous cloud infrastructure. 
+The API should provide the appearance of a middleware that obviates the need to customise the applications to each specific cloud architecture. This is essential for community clouds when these result from the combination of many independently managed clouds. Providing a standard API for the community cloud ensures that applications written once for a particular community cloud system can be easily deployed on new cloud architectures. 
+
+\item QoS and SLA Guarantees
+\\The community cloud system requires mechanisms for ensuring the quality of service (QoS) and enforcing service level agreements (SLA).
+
+\end{itemize}
+
+Based on these requirements, in terms of an institutional policy, we design a community cloud framework, which leads to an implementation of the community cloud system that will be responsible for joining and consuming cloud services almost automatically with little user intervention. 

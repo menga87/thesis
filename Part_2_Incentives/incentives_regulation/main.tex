@@ -1,0 +1,44 @@
+
+\documentclass[../../main.tex]{subfiles}
+\begin{document}
+
+%%%% This is copied from JCSS paper. %%%%
+
+\chapter{Managing Incentives with Trusted Users}
+\label{chap__incentives}
+
+%% *** Introduction
+\subimport*{\main/Part_2_Incentives/incentives_regulation/}{introduction}
+
+%% *** Introduction
+\subimport*{\main/Part_2_Incentives/incentives_regulation/}{motivation}
+
+%% *** Section: System Model
+\subimport*{\main/Part_2_Incentives/incentives_regulation/}{model}
+
+%% *** Section: Design
+\subimport*{\main/Part_2_Incentives/incentives_regulation/}{design} 
+
+% *** Section: Simulation Experiments
+\subimport*{\main/Part_2_Incentives/incentives_regulation/}{simulation}
+
+% *** Section: Implementation
+\subimport*{\main/Part_2_Incentives/incentives_regulation/}{implementation}
+
+% *** Section: Evaluation/Experiments
+\subimport*{\main/Part_2_Incentives/incentives_regulation/}{evaluation} 
+
+% *** Section: Discussion
+\subimport*{\main/Part_2_Incentives/incentives_regulation/}{discussion}
+
+% *** Section: Conclusion
+\subimport*{\main/Part_2_Incentives/incentives_regulation/}{conclusion}
+
+\iftoggle{enable_chapter_bib} { %%%
+	\printbibliography
+}
+
+\cleardoublepage
+
+% that's all folks
+\end{document}

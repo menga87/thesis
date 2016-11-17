@@ -1,0 +1,149 @@
+
+
+% List of Publications
+
+\chapter*{List of Publications}
+\label{chap__publications}
+
+The research results from this thesis have led to the following publications:
+
+\iftoggle{enable_biblatex} { %%%
+
+\subsection*{Journal Articles}
+
+\begin{refsection}[\mypublicationsbib]
+	\nocite{Khan2015Incentive}
+	
+	\newrefcontext[sorting=ydnt]
+	\printbibliography[heading=none]
+\end{refsection}
+
+\subsection*{Conference Proceedings}
+
+\begin{refsection}[\mypublicationsbib]
+	\nocite{Khan2016Distributed}
+	\nocite{Khan2015Towards}
+	\nocite{Khan2014Prototyping}
+	\nocite{Khan2013TowardsIncentives}
+	\nocite{Khan2014Architecture}
+
+	\newrefcontext[sorting=ydnt]
+	\printbibliography[heading=none]
+\end{refsection}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section*{Other Publications}
+The background research to this thesis has led to the following publications:
+
+\subsection*{Book Chapters}
+
+\begin{refsection}[\mypublicationsbib]
+	\nocite{Khan2015CommunityClouds}
+	\nocite{Khan2015Enabling}
+	
+	\newrefcontext[sorting=ydnt]
+	\printbibliography[heading=none]
+
+\end{refsection}
+
+\subsection*{Journal Articles}
+
+\begin{refsection}[\mypublicationsbib]
+	\nocite{Selimi2015Cloud}
+	\nocite{Khan2014Sparks}
+	
+	\newrefcontext[sorting=ydnt]
+	\printbibliography[heading=none]
+\end{refsection}
+
+\subsection*{Conference Proceedings}
+
+\begin{refsection}[\mypublicationsbib]
+	\nocite{Khan2014Macroeconomic}
+	\nocite{Khan2015DSS}
+	\nocite{Khan2015Current}
+	
+%	% Workshops
+%	\nocite{Freitag2014Energy}
+%	\nocite{Khan2013Clouds}
+%	\nocite{Buyuksahin2013}
+%			
+%	% Abstracts
+%	\nocite{Baig2015Community}
+%	\nocite{Selimi2014Cloud}
+%	\nocite{Jimenez2013}
+
+	\newrefcontext[sorting=ydnt]
+	\printbibliography[heading=none]
+\end{refsection}
+
+
+\subsubsection*{Workshops}
+
+\begin{refsection}[\mypublicationsbib]
+	\nocite{Freitag2014Energy}
+	\nocite{Khan2013Clouds}
+	\nocite{Buyuksahin2013}
+	
+	\newrefcontext[sorting=ydnt]
+	\printbibliography[heading=none]
+\end{refsection}
+
+
+\subsubsection*{Abstracts, Demos \& Posters}
+
+\begin{refsection}[\mypublicationsbib]
+	\nocite{Baig2015Community}
+	\nocite{Selimi2014Cloud}
+	\nocite{Jimenez2013}
+	
+	\newrefcontext[sorting=ydnt]
+	\printbibliography[heading=none]
+\end{refsection}
+
+
+\subsection*{Technical Reports}
+
+\begin{refsection}[\mypublicationsbib]
+	\nocite{Khan2013Distributed}
+
+	\newrefcontext[sorting=ydnt]
+	\printbibliography[heading=none]
+\end{refsection}
+
+% Revert to original sorting order for references
+\newrefcontext[sorting=nty]
+
+}{ %%% else	
+	% When using bibtex to generate aux file
+	
+	\nocite{Khan2015CommunityClouds}
+	\nocite{Khan2015Enabling}
+	
+	\nocite{Khan2015Incentive}
+	\nocite{Selimi2015Cloud}
+	
+	\nocite{Khan2014Sparks}
+
+	\nocite{Khan2016Distributed}
+	\nocite{Khan2015Towards}
+	\nocite{Khan2014Prototyping}
+	\nocite{Khan2013TowardsIncentives}
+	\nocite{Khan2014Architecture}
+	
+	\nocite{Khan2014Macroeconomic}
+	\nocite{Khan2015DSS}
+	\nocite{Khan2015Current}
+
+	\nocite{Freitag2014Energy}
+	\nocite{Khan2013Clouds}
+	\nocite{Buyuksahin2013}
+	
+	\nocite{Baig2015Community}
+	\nocite{Selimi2014Cloud}
+	\nocite{Jimenez2013}
+
+	\nocite{Khan2013Distributed}
+
+} %%% \iftoggle{enable_biblatex}

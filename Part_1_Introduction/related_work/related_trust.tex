@@ -1,0 +1,179 @@
+
+\section{Trust in Resource Allocation}
+\label{sec__related_work_trust}
+
+%\subsection{Trust Issue in Auctions}
+
+The issue of trust in auctions is well-known and well-studied in economic theory,
+for various type of auctions~\cite{Sandholm2000}.
+In particular Vickrey auction, 
+which forms basis of the celebrated VCG mechanism~\cite{Nisan2001}, 
+is very susceptible to a lying auctioneer~\cite{Sandholm2000}.
+VCG mechanism is often used in distributed systems and cloud computing
+to ensure strategy-proofness in resource allocation, 
+but it suffers from significant issues because of the trust 
+required in the auctioneer~\cite{Sandholm2000}.
+There are numerous distributed auction schemes 
+proposed in literature~\cite{Guo2013, Zhou2008, Lai2004},
+but the fact that they are decentralised in itself does not imply trust.
+Without careful design, one or more agents participating in the
+distributed auction can affect the results to their advantage.
+
+The issue of an auctioneer cheating in second-price sealed-bid auctions, similar to VCG auctions,
+has been so severe that fraud was commonplace in the stamps auctions 
+of late 19th and 20th century~\cite{Lucking-Reiley2000},
+which provide the first recorded example of using Vickrey auctions in practice.
+More recently, such second-price auctions have been used by eBay~\cite{Lucking-Reiley2000Auctions} to sell goods, 
+and by Yahoo, Google, and other Internet search companies to sell keywords-based 
+online advertising~\cite{Edelman2007}.
+It has been suggested that such auctions are viable for these Internet companies,
+in the absence of any trust, because these companies have low commissions,
+and conduct so many trades that it is not in their interest to cheat~\cite{Lucking-Reiley2000}.
+But the issue of mistrust in the auctioneer has been prevalent, 
+so much so that when Amazon introduced its
+\enquote{spot instances} service using market-based pricing, 
+there were doubts that Amazon was not using supply and demand to set the prices,
+but instead employed a mathematical regression function to set the rates~\cite{BenYehuda2013}.
+
+%\subsection{Implications of Lack of Trust}
+This lack of trust can create various problems for resource allocation in decentralised systems, 
+and we go through a few examples here.
+InterCloud allows for multiple cloud providers to federate their resources 
+to form a cloud market~\cite{Grozev2014}.
+The current approaches mostly rely on bilateral agreements, and price negotiation.
+However, as the number of providers increases this arrangement
+will no longer be tenable.
+The providers cannot put absolute trust in anyone among them
+or in a third party to execute the auction fairly.
+%
+Social clouds~\cite{Caton2014} allow exchanging resources between users of online social networks.
+Here, as well, the users have to trust the allocation and resource matching algorithm,
+which even if it runs distributed on multiple machines,
+cannot be trusted, since some of the users can \emph{tweak} the allocator to their advantage.
+%
+Secondary wireless spectrum markets~\cite{Zhou2008, Zhu2012} also apply auctions to ensure
+strategy-proofness, but again fail if a trusted auctioneer is not available.
+%
+BitTorrent, like other similar popular P2P file sharing systems,
+regulates access to available resources depending on the users' contribution.
+However, users can easily use their BitTorrent clients to falsely report their contribution to be high.
+To counter this, BitTorrent private communities have a central mediator
+that dictates rules for uploading and downloading content, 
+and tracks contribution and consumption by the users~\cite{Liu2010}.
+However, the administrators and privileged users can affect the central
+mediator to get unfair advantage.
+%
+Resource allocation in shared infrastructures like Grid systems also require incentive-compatible 
+solutions~\cite{Lai2004, Khan2006Noncooperative, Buyya2002Economic}, %  Buyya2005, 
+and many of the proposed approaches in the literature apply only 
+when a trusted entity is available for executing the auction mechanisms.
+
+A cheating auctioneer can pose a number of problems.
+The major among them, that we focus on, is that the winning bids may not be selected fairly,
+and the payment each winning bidder has to make is not calculated properly.
+In open-bid auctions, like English and Dutch auctions~\cite{Krishna2009},
+the above two issues are not a major problem as the bidding process is open to all the participants.
+In sealed-bid first price auction, each winning bidder pays the amount she quoted,
+so even though the auctioneer can cheat on selecting the winning bidders,
+at least the winning bidders are sure they are paying the correct amount.
+In sealed-bid second price auctions, the auctioneer can even cheat 
+on the price the bidder has to pay, and this is a major issue~\cite{Sandholm2000}.
+
+Other issues with auctions that we do not consider here include bidders cooperating
+together to artificially lower the price, 
+the providers making a coalition to keep the price high,
+or the auctioneer learning from buyers' preference to increase the reserve bid price.
+We do not focus on these and other issues, but in recent literature
+cryptographic zero-knowledge based algorithms have been 
+employed to tackle these problems~\cite{Micali2014, Lipmaa2003}.
+Some of these solutions, because of their high computational complexity,
+are better suited to infrequent auctions of highly valuable goods,
+for example wireless spectrum auction by a government,
+than for integrating in mechanisms for distributed systems
+where the auctions are often repeated at short intervals.
+
+
+\subsection{Allocation with Rational Users}
+\label{sec__allocation_rational}
+
+Most of the existing approaches, as we have discussed above, assume a single trusted entity 
+or multiple trusted entities coordinating together
+for executing the resource allocation mechanism. 
+Unfortunately, this is an unreasonable assumption in many of today's fully
+decentralised systems, where all nodes are either resource consumers,
+resource providers, or both. 
+In this case, there is no natural candidate that 
+can be trusted by all other nodes to run the auction
+algorithm faithfully, given that any node may extract some
+benefit by perturbing the auction result. 
+In some sense, all current distributed systems that 
+rely on centralised auctions to perform resource
+allocation are not fully decentralised, 
+because they depend on a unique central point of control, 
+which is the trusted node that runs the auction algorithm. 
+Similarly, in the context of community network clouds, 
+that comprise of untrusted service providers,
+such a trusted entity in most cases is not feasible, 
+and even if it existed, can impede the scalability.
+This leads to the observation that there is
+still a substantial gap that needs to be bridged to apply these
+results in fully decentralised settings.
+None of the above works, to the best of our knowledge, 
+address the problem of resource allocation
+in the absence of a trusted auctioneer.
+
+%TODO Discuss Byzantine in more details??
+
+The problem of simulating the behaviour of a trusted entity in an environment 
+with only rational players has been approached in the literature of 
+distributed systems~\cite{Aiyer2005,Halpern:04,Abraham:06,Abraham2013,Afek2014}.
+%
+Aiyer et al.~\cite{Aiyer2005} presented BAR model which involves Byzantine (or faulty) 
+and rational players, as well as acquiescent players who follow the suggested protocols. 
+They used BAR model to develop fault tolerant cooperative services using state machine replication.
+%
+% Distributed Computing Meets Game Theory: Robust Mechanisms for Rational Secret Sharing and Multiparty Computation
+% Rational Secret Sharing and Multiparty Computation: Extended Abstract
+In~\cite{Halpern:04,Abraham:06}, the authors addressed the
+particular problems of secret sharing and multi-party computation
+assuming the existence of a trusted mediator, 
+and then studied conditions under which it is possible to simulate the mediator through a distributed protocol. 
+They discussed $k$-resilient Nash equilibria
+so that even if a whole coalition of up to $k$ players 
+chooses joint strategies to defect, 
+still no member of the coalition can increase its utility.
+Their results apply even if there are only 2 players, 
+so that multi-party computation can be performed with only two rational agents. 
+
+%
+Abraham et al.~\cite{Abraham2013} devised $k$-resilient equilibria solutions 
+for the classic problem of electing a leader in an anonymous network in the presence of rational agents. 
+They considered existence of $k$-resilient equilibria for several topologies 
+like a unidirectional ring, bidirectional ring, or completely connected network, 
+in both the synchronous and asynchronous case.
+They showed that a fair ex post $k$-resilient equilibrium 
+requires $n > 2k$, i.e.~the number of agents should be more than 
+twice the size of the largest coalition for the system to reach equilibrium.
+They also highlighted how involving cryptographic techniques 
+can help achieve equilibrium, and result in more computationally efficient algorithms.
+
+Afek et al.~\cite{Afek2014} proposed a building blocks approach 
+for devising distributed $k$-resilient implementations 
+to solve common distributed computing problems 
+like leader election, consensus, and renaming. 
+They extended the ideas from~\cite{Abraham2013} to develop building blocks 
+that are all resilient in the presence of rational agents, 
+and coalitions of rational agents to some extent as well.
+They differentiated between different utility functions for distributed algorithms, 
+e.g., utilities based on communication preference, 
+solution preference, and output preference. 
+Based on these preferences, they formulated two basic building blocks 
+for game theoretic distributed algorithms, 
+a wake-up building block and and a knowledge sharing building block,
+that are resilient to these preferences. 
+These blocks formed part of their solutions to 
+leader election, consensus, and renaming problems.
+
+None of these works devised distributed protocols for simulating the role of an auctioneer in an auction. 
+We build on the work of~\cite{Abraham2013, Afek2014} to develop a distributed virtual auctioneer, 
+which we focus on in \Cref{chap__trusted_auction}.

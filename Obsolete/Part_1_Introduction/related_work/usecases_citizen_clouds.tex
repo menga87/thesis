@@ -1,0 +1,116 @@
+%
+%
+%\subsection{Citizen Community Clouds}
+%\label{sec__community_clouds_enterprise}
+%
+%Community clouds can also be built by the citizens in a bottom-up fashion through colloaborative efforts~\cite{Khan2015Current},
+%and in this case community cloud systems have to be designed as per the needs of the community of the users they are to serve,
+%so as to encourage contribution and participation by the community members.
+%This shows that besides the technical challenges, community clouds require a strong value proposition in the specific social and economic context of the targeted communities to ensure uptake and sustainability of the proposed cloud solution among the community.
+%There have been quite a few community cloud ideas and implementations investigated in different contexts, as we discuss in detail below.
+%%There are only a few research proposals for community cloud computing. 
+%%Most of them do not go beyond the level of an architecture, and at most a practical implementation is presented.
+%%Most of these implementations, to our knowledge, are not actually being deployed inside of real communities.
+%
+%\subsection{Volunteer Cloud Computing}
+%\label{sec:voluntary-cloud}
+%
+%The idea of building cloud infrastructure using resources contributed by a community of users~\cite{Marinos2009}, 
+%follows on from earlier volunteer distributed computing platforms like
+%	SETI@Home~\cite{Anderson2002} and
+%	BOINC~\cite{Anderson2004},
+%	Folding@home~\cite{Beberg2009}, 
+%	HTCondor~\cite{Thain2005}, and
+%	PlanetLab~\cite{Chun2003} among many others,
+%and in general from the peer-to-peer systems~\cite{Shen2010} that focus on collaborative resource sharing.
+%%and in the same vein, Seattle~\cite{Cappos2009} project focuses on providing a cloud computing environment for educational purposes.
+%Seattle project provides a Python based toolkit that allows the participants to share their computing resources with the community, 
+%and use the interfaces provided by the toolkit to design applications in Python taking advantage of the distributed resources of the Seattle platform.
+%
+%\subsection{Edge Cloud Computing}
+%\label{sec:edge-cloud}
+%
+%The idea behind edge computing is to utilise users' contributed edge resources connected through Internet to provide infrastructure for community cloud services. %\cite{Chandra2013}
+%There are a few such research prototypes for community clouds at the edge that provide not the complete system but some of the components as proof of concept.
+%%\subsection{Cloud@Home}
+%The Cloud@Home\cite{Distefano2012} project aims to harvest resources from the community for meeting the peaks in demand, working with public, private and hybrid clouds to form cloud federations.
+%%The authors propose a rewards and credit system for ensuring quality of service.
+%The P2PCS~\cite{Babaoglu2012} project has built a prototype implementation of a decentralised peer-to-peer cloud system,
+%with basic support for creating and managing VMs using Java JRMI technology.
+%It uses Java JRMI technology and builds an IaaS system that provides very basic support for creating and managing VMs. 
+%It manages VM information in a decentralised manner using gossip protocols, however the system is not completely implemented and integrated.
+%The Clouds@home~\cite{Yi2011} project focuses on providing guaranteed performance and ensuring quality of service even when using volatile volunteered resources connected by Internet.
+%Virtual Interacting Network CommunIty (Vinci) project~\cite{Baiardi2010} addresses the security issues involved in sharing private infrastructure with others through virtualization.
+%%\subsection{Personal Clouds}
+%Jang et al.~\cite{Jang2014} implement personal clouds that federate local, nearby and remote cloud resources to enhance the services available on mobile devices.
+%
+%\subsection{Social Cloud Computing}
+%\label{sec:social-clouds}
+%
+%Social cloud computing~\cite{Chard2012, Caton2014} takes advantage of the trust relationships between members of the online social networks to motivate sharing of storage and computation resources,
+%by integrating with the programming interfaces (API) of the social network services which facilitates the establishment of mutual trust and resource sharing agreements.
+%%Users can trade their excess capacity to earn virtual currency and credits that they can utilize later, and consumers submit feedback about the providers after each transaction which is used to maintain reputation of each user.
+%%
+%%Social cloud computing~\cite{Chard2012, Caton2014} takes advantage of the trust relationships between members of the online social networks to motivate sharing of storage and computation resources %contribution towards a cloud storage service. %~\cite{Chard2012, Punceva2013, Caton2014}
+%%It focuses on users of online social networks, 
+%%like 
+%%	Facebook\footnote{\url{http://facebook.com}}, 
+%%	Twitter\footnote{\url{http://twitter.com}} 
+%%	and Google Plus\footnote{\url{http://plus.google.com}}
+%%among many others, 
+%It works with the basic premise that users are more likely to share resources with someone they already know in real life.
+%This also brings in the advantage that mutual trust and resource sharing agreements can be easily established.
+%The requirements are that the system should closely integrate with the API provided by the online social networks providers.
+%For instance, one of the social clouds projects~\cite{Chard2012} integrates Facebook API to provide a distributed storage service where one can store files on friends' machines.
+%Users trade their excess capacity to earn virtual currency and credits that they can utilize later, and consumers submit feedback about the providers after each transaction which is used to maintain reputation of each user.
+%%This scenario closely matches the community cloud problem and underlying issues and challenges are identical.
+%Integration of social networks brings some complexity in implementing the system, but also makes issues like resource discovery and user management easier to tackle.
+%Social clouds have also been deployed in CometCloud framework by federating resources from multiple cloud providers~\cite{Punceva2013}.
+%Social compute cloud~\cite{Caton2014}, implemented as an extension of Seattle~\cite{Cappos2009} platform, 
+%enables the sharing of infrastructure resources between friends connected through social networks,
+%and explores bidirectional preference-based resource allocation.
+%
+%\subsection{Mobile Cloud Computing}
+%%\subsection{Mobile Phone Users}
+%Mobile cloud computing has gained prominence in recent years owing to growing trend of powerful smart phones that provide better computing capacity, memory and storage, even though battery power and bandwidth is still a limitation~\cite{Dinh2013, Khan2014Mobile, Sanaei2014}.
+%The work in mobile cloud computing~\cite{Dinh2013} can be generally divided into two categories. 
+%The first and the most prevalent one is termed as \emph{application offloading}, where most of the processing is done on the servers in the cloud, and the results are delivered to the mobile device, since computing and memory demands of the applications are not met by the resources on the local device.
+%%on mobiles whose computing and memory demands cannot be met locally on the device. %TODO: Cite for term?
+%%In this case, most of the processing is done on the back-end servers and the mobile acts as a thin-client to interact with the user. 
+%%This is made possible by infrastructure provisioning through cloud services.
+%This usage does not fit the collaborative model of community cloud computing as the mobile devices are only used for consumption of cloud services that are provided by public clouds. % service providers.
+%The other model is of \emph{crowd computing}, where the aim is to employ the mobile devices both as providers and consumers of the cloud services. %TODO: Cite for term?
+%In this case, the computing and storage resources for the cloud infrastructure are aggregated from the mobile devices of the users~\cite{Huerta-Canepa2010}. %TODO: Look for better citation, may be a survey
+%This model closely matches the idea of community cloud computing, where issues like high mobility and limited capacity introduce additional constraints to the problem.
+%
+%%\subsection{Scientific Research Community} 
+%%%\subsection{HPC Community}
+%%Scientific research benefits from pooling in cloud computing resources across the organisations, similar to earlier Grid systems,
+%%and from contribution of resources by the users, similar to volunteer computing like PlanetLab~\cite{Chun2003}.
+%%%This can be considered as an extension of earlier Grid computing systems, 
+%%For example, IEEE InterCloud Testbed project~\cite{Buyya2010InterCloud} explores federating cloud infrastructures from multiple providers.
+%%%and some of the notable projects include 
+%%%	BonFire\footnote{\url{http://bonfire-project.eu}}, 
+%%%	Fed4Fire\footnote{\url{http://fed4fire.eu}},
+%%%	CometCloud\footnote{\url{http://nsfcac.rutgers.edu/CometCloud}},
+%%%	IEEE InterCloud Testbed\footnote{\url{http://cloudcomputing.ieee.org/intercloud}}  and 
+%%%	XIFI\footnote{\url{http://fi-xifi.eu}}.
+%%%The other direction is extension of past voluntary computing and desktop grids projects, like PlanetLab~\cite{Chun2003}, that make use of resources contributed by users.
+%%%For example, Seattle~\cite{Cappos2009} project aims to provide an educational cloud environment for exploring distributed systems concepts. %  and Folding@home~\cite{Beberg2009}
+%%
+%%\subsection{ICT Services Providers}
+%%Community cloud has applications for ICT services providers %Internet, Mobile, and Telecom services providers.
+%%%This can be either service providers 
+%%through either taking advantage of customer-premises equipment (CPE) or network edge devices, for improving delivery of services and better utilisation of provider's facilities.
+%%For instance, 
+%%	Telef\'{o}nica ClubWiFi project~\cite{Giustiniano2010}
+%%	%\footnote{\url{http://www.tid.es/en/Research/Pages/TIDProjectProfile.aspx?Project=ClubWiFi\%3a+Increasing+wireless+bandwidth+and+coverage+at+home}} 
+%%	%\footnote{\url{http://www.tid.es}}
+%%pools together Wi-Fi connections of different customers to provide higher bandwidth, an idea that can be extended to providing other services like video-on-demand.  
+%%%This model also helps for Content Distribution Networks (CDN) in that this can allow to distribute content efficiently for users. %TODO: Better citation
+%%%For the latter, 
+%%%	Ericsson\footnote{\url{http://www.ericsson.com/ourportfolio/products/cloud-system}} 
+%%%is looking at placing cloud nodes at the base stations which provides the flexibility of cloud model for networking services. %TODO: Better citation
+%%%This idea builds on the concepts of software defined networking (SDN) and network virtualization. 
+%%This shows that interesting applications can be developed in future making use of the federation of large number of smaller cloud installations set up either at service providers' or consumers' end. 
+%%%even though there are significant research problems open in this area. % has not matured yet.

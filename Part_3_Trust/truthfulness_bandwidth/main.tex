@@ -1,0 +1,24 @@
+%
+\documentclass[../../main.tex]{subfiles}
+\begin{document}
+
+%%%% This is copied from GECON 2015 paper. %%%%
+
+%% *** Introduction
+\subimport*{\main/Part_3_Trust/truthfulness_bandwidth/}{introduction}
+
+%% *** Section: Model
+\subimport*{\main/Part_3_Trust/truthfulness_bandwidth/}{model}
+
+% *** Section: Evaluation
+\subimport*{\main/Part_3_Trust/truthfulness_bandwidth/}{evaluation} 
+
+% *** Section: Discussion
+\subimport*{\main/Part_3_Trust/truthfulness_bandwidth/}{discussion}
+
+\iftoggle{enable_chapter_bib} { %%%
+	\printbibliography
+}
+
+% that's all folks
+\end{document}

@@ -1,0 +1,505 @@
+
+% Section: DESIGN
+\section{The Distributed Auctioneer}
+\label{sec__dist_auctioneer_design}
+
+We propose a framework for devising distributed 
+protocols executed by the providers that correctly simulate the auctioneer.
+The framework is sufficiently general to simulate different auctions.
+To illustrate its applicability, we provide two implementations 
+of the framework for standard and double 
+bandwidth allocation auctions, respectively.
+We describe the framework in two steps. First, we provide a general definition
+where we do not specify the details about how to implement the simulation
+of the algorithm $\A$. Then, we describe how to simulate $\A$
+by leveraging parallelism to speed up its execution.
+
+
+\subsection{General Framework}
+The input of the framework at each provider $j$ is a vector $\vec{b}^j$
+of bids submitted to $j$ and the output is either a pair $(x,\vec{p})$ containing
+an allocation $x$ and a vector of payments $\vec{p}$ or the special value $\bot$.
+As illustrated in Figure~\ref{fig:framework}, the framework chains the execution
+of two building blocks: \emph{bid agreement} and \emph{allocator}.
+Each provider $j$ inputs $\vec{b}^j$ to the bid agreement,
+which outputs either a vector $\vec{b}$ or $\bot$.
+In the former case, $j$ inputs $\vec{b}$ to the allocator.
+If all providers follow the protocol, then the bid agreement ensures
+that they all output some vector $\vec{b}$ containing all valid bids,
+and the allocator ensures that they all output a pair $(x,\vec{p})$
+with probability determined by $\A$.
+
+\begin{figure}[tbp]
+	\centering
+	\includegraphics[width=0.75\columnwidth,keepaspectratio]{basicprotocol}
+	\caption{Framework: Bid Agreement (BA) and Allocator (A)}
+	\label{fig:framework}
+\end{figure}
+
+In the following paragraphs, we describe each block 
+in more detail by defining properties that must be satisfied 
+by any implementation of the block, and then show in the analysis that
+every implementation of the framework is $k$-resilient and correctly simulates
+the auctioneer based only on the properties of the blocks. This makes
+the proof independent from the actual implementation.
+In all blocks, an implementation $P$ must satisfy
+the property of \emph{$k$-resiliency for solution preference}, i.e.,
+$P$ must be a $k$-resilient equilibrium, under
+the assumption that players have preference for a solution 
+and number of agents not in the same coalition is sufficiently high.
+Specifically, the output of every block is either some valid value or $\bot$.
+We can split the set of outcomes of the block (combinations of outputs)
+into the set $A$ of solutions where all providers output the same valid value
+and the set $B$ of remaining outcomes. 
+In a correct execution, we want the outcome to lie in $A$.
+To ensure this and that the protocol is a $k$-resilient equilibrium,
+we need to assume that providers obtain a higher utility for outcomes in $A$
+than for outcomes in $B$ (preference for a solution), and $m > f(k)$ for
+some function $f$ defined for every $k > 0$.
+The assumption of preference for a solution of the framework
+is equivalent to providers preferring to receive the payments.
+
+\subsubsection{Bid Agreement}
+The input at provider $j$ is the vector $\vec{b}^j$ of bids sent to $j$.
+The output is a vector $\vec{b}$ or the special value $\bot$.
+In addition to $k$-resiliency for solution preference,
+this block must ensure two conditions when all providers follow the protocol: 
+(1) \emph{eventual agreement}, defined as
+all providers eventually outputting the same vector $\vec{b}$,
+and (2) \emph{validity}, defined as,
+for every bidder $i$ that submits the same bid $b_i'$
+to all providers, the output at every provider is $b_i = b_i'$.
+
+\begin{property}
+\label{prop:bid-agreement}
+A protocol $P$ implements bid agreement if and only if it satisfies two conditions:
+(1) if all providers follow $P$, then $P$ satisfies eventual agreement and validity;
+and (2) $k$-resiliency for solution preference.
+\end{property}
+
+If we can assume that the bids of malicious bidders are obtained from a finite
+set of values and are equally likely, then 
+a suitable approach is to use the rational consensus protocol proposed in~\cite{Afek2014},
+which has inputs $\{0,1\}$ and outputs in $\{0,1,\bot\}$,
+and satisfies the following two properties:
+(a) if all providers follow the protocol, then all providers eventually
+output the same bit, which is input by some provider;
+and (b) $k$-resiliency for solution preference, assuming $m > 2k$
+and that the input of every provider not in the same coalition
+is either the same value or is $0$ or $1$ with equal probability.
+This protocol can be used to implement the bid agreement as follows.
+For each bidder $i$, provider $j$ generates a stream of bits uniquely
+determined from $b_i^j$ and inputs each bit to a rational consensus instance;
+if some instance outputs $\bot$, then $j$ outputs $\bot$,
+otherwise, $j$ converts the stream to a bid $b_i$ and outputs a bid $b_i^*$,
+where $b_i^* = b_i$ if $b_i$ is valid, or $b_i^*$ is some pre-determined valid bid otherwise.
+To distinguish between different instances of rational consensus,
+providers may append to the messages of each instance
+the identifier of each bidder and the position of each bit.
+Clearly, providers only output valid bids or the value $\bot$.
+By (a), if all providers follow the protocol, then
+eventual agreement and validity hold, showing (1).
+Condition~(2) follows directly from (b) and $m>2k$ if
+the input of every provider satisfies the assumptions of (b).
+To see why these assumptions are true, notice
+that, for each bidder $i$, if $i$ is not malicious, 
+the input of all providers not in the same coalition is $i$'s true bid,
+and if $i$ is malicious, then the bid $b_i^j$ sent by $i$ to $j$ is uniformly
+distributed. If the set of possible bids is the set of all integers, 
+then the stream of bits obtained from $b_i^j$ is also random.
+These are reasonable assumptions, 
+since we expect the behavior of malicious bidders to be arbitrary.
+
+\subsubsection{Allocator} The input at every provider is a vector $\vec{b}$ of bids,
+and the output is either a pair $(x,\vec{p})$ or $\bot$.
+We want the allocator to satisfy four conditions. First, we want the allocator
+to correctly simulate $\A$, i.e., given that
+all providers input the same vector $\vec{b}$ and follow the protocol,
+every provider must eventually output pair $(x,\vec{p})$
+with probability $\A(x,\vec{p} \mid \vec{b})$.
+Second, we want resilience to collusive influences,
+defined as, for all coalitions $K$ of at most $k$ elements,
+if all providers not in $K$ input $\vec{b}$
+and follow the protocol, then no $j \notin K$ outputs a pair $(x,\vec{p})$
+with probability higher than $\A(x,\vec{p} \mid \vec{b})$,
+regardless of the protocol followed by providers in $K$.
+Intuitively, no coalition $K$ can influence the output of providers not in $K$,
+except that they may output $\bot$ with higher probability.
+Third, we want input validation to ensure that
+providers have preference for solutions at the bid agreement.
+More precisely, if two providers input different vectors
+and follow the protocol, then they both output $\bot$,
+regardless of the protocol followed by other providers.
+Finally, we want $k$-resilience for solution preference
+given that all providers have the same input.
+
+\begin{property}
+\label{prop:allocator}
+A protocol $P$ implements the allocator if and only if it satisfies four conditions:
+(1) correct simulation of $\A$; (2) resilience to collusive influence;
+(3) input validation; and (4) $k$-resiliency for solution preference
+if all providers have the same input.
+\end{property}
+
+We discuss implementations of the allocator in \Cref{sec__distrib_auctioneer_protocol_implementation}.
+
+\subsubsection{Analysis}
+We show in Theorem~\ref{theorem:simulation}
+that a protocol that implements our framework correctly
+simulates the auctioneer and is $k$-resilient.
+
+\begin{theorem}
+\label{theorem:simulation}
+For every protocol $P$ that implements the framework,
+$P$ correctly simulates the auctioneer,
+and there exists a function $f$ such that, if $m > f(k)$,
+then $P$ is a $k$-resilient equilibrium.
+\end{theorem}
+
+%\subsection{Proof of Theorem~\ref{theorem:simulation}}
+\begin{proof}
+\label{app:simulation}
+First, we show that $P$ correctly simulates the auctioneer.
+Every provider $j$ inputs $\vec{b}^j$ to the bid agreement.
+By (1) of Property~\ref{prop:bid-agreement}, regardless of the inputs,
+all providers output the same vector $\vec{b}$
+that satisfies validity. By (1) of Property~\ref{prop:allocator},
+the outcome of the simulation is pair $(x,\vec{p})$
+with probability $\A(x,\vec{p} \mid \vec{b})$.
+This concludes the first step of the proof.
+
+Now, we show that $P$ is a $k$-resilient equilibrium for $m > f(k)$ for some $f$.
+Fix a coalition $K$. We take $f$ to be larger for all $k$ than the minimum value of $m$
+required by Properties~\ref{prop:bid-agreement} and~\ref{prop:allocator}.
+These properties imply that, if providers have preference for a solution
+at the bid agreement, then the implementations of bid agreement is $k$-resilient,
+so providers in $K$ prefer to follow $P$ for bid agreement.
+Since this guarantees that all providers have the same input at the
+allocator, the implementation of the allocator is also $k$-resilient,
+implying that $P$ is $k$-resilient.
+
+Now, we show that solution preference holds for both blocks.
+Recall that the outcome is not $\bot$ only if
+providers not in $K$ output the same pair,
+and, if the outcome is $\bot$, then the utility is $0$.
+Hence, providers in $K$ prefer (obtain an expected utility at least as high)
+that providers not in $K$ output the same pair $(x,\vec{p})$;
+in this case, they clearly prefer to output $(x,\vec{p})$ as well, thus they have preference
+for a solution at the allocator. Now, consider the bid agreement.
+The utility of an outcome of this block is the expected
+utility given that providers not in $K$ follow $P$ and providers in $K$
+follow an arbitrary protocol. Clearly, providers in $K$
+prefer that no provider in $K$ outputs $\bot$.
+By (3) of Property~\ref{prop:allocator}, providers in $K$
+prefer that all providers not in $K$ output the same vector.
+By (2) of Property~\ref{prop:allocator},
+providers in $K$ cannot increase the probability of any outcome of the framework 
+other than $\bot$ by deviating, thus, they cannot increase their expected utility by outputting
+a vector $\vec{b}' \neq \vec{b}$ at the bid agreement.
+This shows that providers have preference for a 
+solution at the bid agreement, concluding the proof.
+\end{proof}
+
+%\subsection{Framework for Distributed Auctioneer}
+\subsection{Parallel Allocator Framework}
+\label{sec__distrib_auctioneer_protocol_implementation}
+
+We describe a framework for implementations of
+the allocator that satisfy Property~\ref{prop:allocator}.
+We explore the possibility of parallelising the execution of $\A$ in multiple providers.
+Although this approach introduces the overhead of communication between providers,
+since $\A$ is often computationally intensive,
+its parallelisation compensates for this overhead.
+
+\begin{figure}[tbp]
+	\centering
+	\includegraphics[width=0.5\columnwidth,keepaspectratio]{taskdecomposition}
+	\caption{Decomposition of the Allocator into Tasks}
+	\label{fig:taskdecomposition}
+\end{figure}
+
+The framework consists in an initial invocation of a 
+building block for \emph{input validation} followed
+by the simulation of $\A$, which invokes two additional building blocks:
+\emph{data transfer} and \emph{common coin}.
+The input is a vector of bids and the output is either $\bot$ or a pair $(x,\vec{p})$.
+At the invocation of each block, providers either output a valid value
+or $\bot$; in the latter case, they output $\bot$ at the allocator.
+To describe the simulation of $\A$,
+it is useful to characterise the execution of $\A$
+in terms of a graph of tasks, where nodes correspond to
+tasks to be executed in sequence and edges 
+represent data dependencies. 
+This graph establishes a partial order
+of tasks; every two tasks that are not ordered can be executed in parallel
+by different providers. Figure~\ref{fig:taskdecomposition}
+gives an example of a graph of $4$ tasks,
+where tasks T2.1 and T2.2 can be executed in parallel.
+To cope with collusion, each task $T$ is assigned to a set $S$ of at least $k+1$ providers.
+If a task $T'$ is to be executed by a set $O \neq S$ of providers and $T'$ depends on
+the result of $T$, then the providers of $S$ transfer data to the providers of $O$
+using the data transfer building block. In a correct simulation of $\A$,
+there must be one final task that depends on all other tasks,
+where all providers gather all the required data to produce the final output.
+Whenever providers need a random number distributed according to a 
+probability distribution $\Pi$, they invoke the common coin with input $\Pi$.
+Figure~\ref{fig:parallel-allocator} illustrates the framework
+for the task decomposition of Figure~\ref{fig:taskdecomposition}.
+
+\begin{figure}[tbp]
+	\centering
+	\includegraphics[width=0.70\columnwidth,keepaspectratio]{finalprotocol}
+	\caption[Parallel Allocator]{Parallel Allocator: Input Validation (IV), Data Transfer (DT), and Common Coin (CC)}
+	\label{fig:parallel-allocator}
+\end{figure}
+
+
+As in the previous section, we describe properties that must be satisfied
+by the implementations of each block and then show that every implementation
+of this framework satisfies Property~\ref{prop:allocator}.
+
+\subsubsection{Input Validation}
+The input is a vector $\vec{b}$ and the output is either
+$\bot$ or $\vec{b}$. We want an implementation to satisfy 
+$k$-resiliency for solution preference and that all providers 
+eventually output $\vec{b}$ given that they all input $\vec{b}$,
+and we need to satisfy (3) from Property~\ref{prop:allocator}.
+
+\begin{property}
+\label{prop:iv}
+An implementation $P$ of the input validation must satisfy three conditions:
+(1) if two providers follow $P$ and have different inputs, then they eventually output $\bot$;
+(2) if all providers follow $P$ with the same input $\vec{b}$, then they eventually output $\vec{b}$;
+and (3) $k$-resiliency for solution preference if all providers have the same input.
+\end{property}
+
+A simple implementation is to have providers broadcasting their vectors of bids
+and outputting $\bot$ when two different vectors are detected.
+This clearly satisfies (1) and (2),
+whereas (3) is immediately true if providers have preference for a solution and $m > k$.
+
+\subsubsection{Common Coin}
+The input is a probability distribution $\Pi$
+and the output is either $\bot$ or a number distributed according to $\Pi$.
+Given that all providers have the same input, we 
+want the common coin to satisfy $k$-resilience for solution preference 
+and to output the same random number.
+
+\begin{property}
+\label{prop:common-coin}
+Given that all providers have input $\Pi$,
+an implementation $P$ of the common coin must satisfy two conditions:
+(1) if all providers follow $P$, then they eventually output 
+the same value distributed according to $\Pi$;
+and (2) $k$-resiliency for solution preference.
+\end{property}
+
+A possible implementation of the shared coin is the protocol from~\cite{Abraham2013}.
+The idea is that every provider $j$ commits to a random number $r_j \in [0,1]$,
+before learning the random numbers of every other provider not in its coalition.
+Then, providers reveal all random numbers and compute the output by summing all numbers modulo $1$.
+If some provider $j$ sees a number not in $[0,1]$ or some provider does not send
+a random value compatible with its commitment, then it outputs $\bot$.
+Otherwise, $j$ applies a transformation on the computed value, which is uniformly distributed in $[0,1]$,
+to produce an output that is distributed according to $\Pi$.
+
+It is clear that all providers output the same random number distributed according to the common input $\Pi$
+if they follow the protocol. Assuming that $m > k$, no provider $j$ can manipulate
+the probability distribution of the output by not committing to $r_j$ selected at random
+without some provider outputting $\bot$, even if $j$ is in a coalition of at most $k$ providers.
+Therefore, the protocol satisfies $k$-resiliency for solution preference.
+
+\subsubsection{Data Transfer}
+A set $S$ of providers inputs a value from a domain $D$.
+Providers from a set $O$ either output a value from $D$ or $\bot$.
+When all providers in $S$ have the same input,
+we want them to output the same value in $D$ when they follow the protocol.
+We only require an implementation to be $k$-resilient if $|S|,|O| > k$,
+since otherwise coalitions can always manipulate the output of this block.
+
+\begin{property}
+\label{prop:data-transfer}
+Given that $|S|,|O| > k$ and all providers have the same input $v$,
+an implementation $P$ of the data transfer must satisfy two conditions: 
+(1) if all providers follow $P$, then they eventually output $v$;
+and (2) $k$-resiliency for solution preference.
+\end{property}
+
+We propose a simple $k$-resilient implementation of this block,
+where providers in $S$ broadcast their input to all providers in $O$.
+In the end, if some provider $j \in O$ detects two different values,
+then $j$ outputs $\bot$. Given that all providers
+have input $v$ and that $|S|,|O| > k$,
+they eventually output $v$, and
+no coalition $K$ of up to $k$ providers
+can cause all providers to output $v' \notin \{v,\bot\}$.
+By solution preference, no provider in $K$ gains if someone lies
+about the input $v$ or omits a message.
+
+\subsubsection{Analysis}
+Theorem~\ref{theorem:allocator} shows that every implementation
+of the above framework satisfies the four conditions of Property~\ref{prop:allocator}.
+
+\begin{theorem}
+\label{theorem:allocator}
+Every protocol $P$ that implements the parallel allocator
+satisfies Property~\ref{prop:allocator}.
+\end{theorem}
+
+%\subsection{Proof of Theorem~\ref{theorem:allocator}}
+\begin{proof}
+\label{app:allocator}
+We show that $P$ ensures (1) correct simulation of $\A$; (2) resilience to collusive influence;
+(3) input validation; and (4) $k$-resiliency for solution preference if all providers have the same input.
+First, we show (1). Suppose that all providers input the same vector $\vec{b}$
+and follow $P$. We show that every provider outputs the same pair $(x,\vec{p})$
+with probability $\A(x,\vec{p} \mid \vec{b})$. We show using induction that,
+if the decomposition of $\A$ into tasks is done correctly and we fix all random
+numbers, then at every task $T$ every provider $j$ that executes $T$ has the same output
+that she would have if $j$ executed $\A$ locally with the same random numbers.
+This is true for the first task by (2) of Property~\ref{prop:iv}. In the inductive step,
+the input at each task depends only on the output of a set of tasks.
+For each of those tasks $T$, by the induction hypothesis,
+a set $S$ of at least $k+1$ providers computes the 
+same result and inputs it to the data transfer;
+by (1) of Property~\ref{prop:data-transfer}, all providers that execute $T$
+receive that value and perform the same computation as they would if they were executing $\A$.
+This implies that all providers output the same pair at the end.
+By (1) of Property~\ref{prop:common-coin}, at every invocation
+of the common coin, all providers input the same distribution $\Pi$ and output the same random number
+distributed according to $\Pi$, where $\Pi$ is specified by $\A$. This proves (1).
+
+Now, we show (2). Fix a coalition $K$ and suppose that all providers 
+not in $K$ follow $P$ with input $\vec{b}$ and providers in $K$ follow an arbitrary $P' \ne P$.
+The only way that providers in $K$ could cause providers not in $K$
+to return pair $(x,\vec{p})$ with probability higher than $\A(x,\vec{p} \mid \vec{b})$
+is if the result of some task used in the input of another task or as the final output
+is not distributed as specified by $\A$ and $\vec{b}$.
+Since each task is executed by more than $k$ providers, 
+using an identical reasoning to the proof of (1), we can show using induction
+that providers in $K$ cannot manipulate the probability distribution over the results
+of each task, except only by increasing the probability of some provider 
+not in $K$ outputting $\bot$. Here, we use the fact that,
+by (3) of Property~\ref{prop:iv} and
+(2) of Properties~\ref{prop:common-coin},~\ref{prop:data-transfer},
+providers in $K$ cannot manipulate the probability distribution over
+outputs of the building blocks in a way that increases
+the expected utility of some provider in $K$. This proves (2).
+
+Condition (3) follows by (2) of Property~\ref{prop:iv}.
+To show (4), we first need to prove that providers have preference for a solution at all invocations
+of building blocks, assuming that they have preference for a solution of the allocator.
+Fix a coalition $K$. It is clear that providers in $K$ prefer that providers not in $K$
+do not output $\bot$ at all invocations. Now, we use backward induction to show
+that they prefer that providers not in $K$ never return different values.
+In the last invocation, this is clearly true by preference for a solution of the allocator.
+Continuing backwards, if two providers not in $K$ output different values
+at the same invocation of some block, then either they output different pairs at the end or 
+input different values at the following invocation of the data transfer,
+which by the hypothesis is never preferable to outputting the same value at the considered invocation.
+By the proof of (2), providers in $K$ cannot manipulate the final outcome
+by not outputting the same values at all invocations, so
+they also prefer to output the same values as providers not in $K$,
+showing solution preference at all invocations. This also shows that
+providers prefer to have the same input at all invocations.
+Thus, given that all providers have the same input,
+no provider in $K$ can increase its expected utility
+if some provider $j \in K$ does not compute each task correctly.
+By (3) of Property~\ref{prop:iv} and 
+(2) of Properties~\ref{prop:common-coin} and~\ref{prop:data-transfer},
+$P$ is a $k$-resilient equilibrium.
+\end{proof}
+
+\subsection{Resource Allocation Instances}
+\label{sec__dist_auctioneer_instances}
+
+We now show how our framework can be applied to two different bandwidth allocation problems in the context of community networks.
+For that purpose, we resort to two different 
+algorithms that have been proposed in the literature 
+to solve bandwidth allocation for users in providers. 
+These algorithms rely on standard and double auctions respectively, 
+and have different computational properties: 
+the double auction algorithm 
+provides an example of a graph with only one task that is not computationally intensive, 
+such that decomposing its execution into 
+parallel tasks does not provide a performance gain; 
+the standard auction algorithm provides a graph with multiple computationally 
+intensive tasks that can be parallelised. 
+Later in the chapter (\Cref{sec__dist_auctioneer_evaluation}), we will use these examples to evaluate 
+the performance of implementations of the framework. 
+We use the double auctions example to measure a worst-case overhead of executing all building blocks of the framework 
+compared to an execution with a centralised trusted auctioneer, 
+and we use the standard auctions example to show that the improvements of
+parallelisation can outweigh the added overhead when the execution time is dominated by computation.
+
+\subsubsection{Double Auction}
+\label{sec:instances-double-auction}
+Consider an auction where each provider has a limited bandwidth to be allocated to multiple users,
+and each user has a demand of bandwidth that may be satisfied by multiple providers.
+Both the users and the providers declare in their bids 
+the value given to a unit of allocated bandwidth. 
+An allocation gives the amount of bandwidth for each user
+allocated in each provider. We want to ensure truthfulness in expectation and budget balance.
+For this purpose, we use the algorithm $\A$ of~\cite{Zheng2014Star},
+which provides the above properties at the expense of social welfare. 
+The idea is to order the providers by increasing
+value and to order the users by decreasing value.
+Then, users are allocated by their order to the providers using the water-filling method:
+the maximum amount of bandwidth of each user is allocated
+to the first available provider without exceeding its capacity,
+and any unsatisfied demand of that user is allocated to the following providers using the same method.
+Since the most computationally intensive task of this algorithm
+is sorting, in most practical settings there is no performance gain in parallelising the execution of $\A$.
+Instead, every provider executes $\A$ locally and outputs the result.
+Hence, we never need to invoke the data transfer building block.
+
+
+\subsubsection{Standard Auction}
+\label{sec:instances-vcg}
+Consider a variation of the double auction where providers
+do not send bids and each bidder can only have its bandwidth demand
+allocated in a single provider. Here, we aim for truthfulness
+in expectation, maximal social welfare, and computational efficiency.
+It is well known that a VCG mechanism can be used to provide the first two guarantees.
+The difficulty is that determining the maximal
+social welfare is in general an NP Hard problem,
+which conflicts with the goal of computational efficiency.
+To address this issue, we use the algorithm of~\cite{Zhang2015Truthful}
+which adapts the VCG mechanism to achieve a tradeoff
+between the two conflicting requirements. Specifically,
+\cite{Zhang2015Truthful}~offers a $(1-\epsilon)$ approximation
+of maximal social welfare for an arbitrarily small $\epsilon$,
+while terminating in polynomial time according to smoothed analysis.
+
+Interestingly, the randomised algorithm proposed
+in~\cite{Zhang2015Truthful} has the potential for parallelisation.
+In a course manner, the algorithm can be divided into three steps, depicted
+in Algorithm\,\ref{alg:bandwidth-allocation-randomised}. The first
+step derives an approximately optimal allocation of users to providers.
+This step is hard to parallelise effectively in a distributed system,
+so we run it in a single sequential task.
+The second step calculates the payments for each user based on the result of the first step.
+This step is computationally intensive and the payments for each user can be computed
+independently and, therefore, can be easily parallelised.
+The final step gathers all intermediate results to produce the output.
+In our implementation, the first and third steps are executed by all providers.
+In the second step, we group the providers into $c$ groups, each containing at least $k+1$
+providers. Each group is assigned the computation of the payments
+of a subset of $n/c$ users. Then, all providers of a group
+execute the data transfer block to transfer the resulting payments to all providers.
+
+\begin{algorithm}[tbp]
+	\caption{Standard auction allocator}
+	\label{alg:bandwidth-allocation-randomised}
+	\small
+
+	\begin{algorithmic}[1]
+		\State Task 1: Calculate the allocation solution $x$
+		\For {Each subset $S$ of bidders in parallel}
+			\State Task 2.$S$: calculate payment $p_j$ of every $j \in S$
+		\EndFor
+		\State Task 3: Collect the outputs of each task with the data transfer and output $(x,\vec{p})$
+	\end{algorithmic}
+
+\end{algorithm}
+

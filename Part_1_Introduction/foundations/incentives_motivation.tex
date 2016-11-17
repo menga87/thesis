@@ -1,0 +1,72 @@
+
+% incentives_motivation.tex
+
+\section {Incentives Based Resource Regulation}
+\label{sec__incentives_motivation}
+
+Community network clouds, like other volunteer computing platforms, 
+not only need to solve the technical challenges to be feasible but also 
+address the social and economic context to engage their participants.
+The existing social relationships among the users provide the foundation for building community cloud services.
+Just as in social computing~\cite{Caton2014}, relationships from online social networks 
+provide the backdrop to provision cloud services, 
+in the case of community network clouds, we believe the existing
+relationships among users of the community networks will make it possible 
+for the model to be adopted.
+
+The community networks provide the context and motivating scenarios 
+for developing the proposed solutions that are discussed in Chapters \ref{chap__incentives} and \ref{chap__trusted_auction};
+however, our proposals and findings are general enough for being applicable to other related fields.
+In order to realise clouds in community networks, we can take the existing software and technology, 
+and adapt and extend it to better fit with the characteristics and constraints of the community networks. 
+For example, an initiative in this regard has been the Cloudy distribution~\cite{Cloudy}, 
+which is based on Linux operating system and 
+incorporates useful free and open-source services of interest to the members of Guifi.net~\cite{Selimi2015Cloud}. 
+Of course, this does not imply that the community cloud model is restricted only to the members of the community networks.
+In fact, with Cloudy distribution there has been an effort to engage and involve others who are not part of a community network, 
+and let them connect using network tunnelling protocols~\cite{ClommunityTestbed}.
+The emphasis is on building cloud services and applications of local interest 
+using the resources contributed by the members of the community networks, 
+but also on engaging the wider Internet community at the same time, 
+which can also generate interest in the community networks themselves.
+
+The resources available in the community network clouds can be divided into various categories.
+Network resources, like upstream and downstream bandwidth at different links of the community network, 
+available bandwidth at the Internet gateways, 
+or bandwidth at the links connecting to the popular content servers, 
+are limited and already of value to the members of the community networks.
+Any community cloud solution has to work within the constraints of the available network capacity, 
+and avoid negatively impacting the operations of the community network.
+Community clouds at the basic level provide Infrastructure-as-a-service (IaaS), 
+where resources like computation, memory and storage, are packaged as virtual machine (VM) instances.
+In the collaborative model of community network clouds, users will be trading these resources as VMs among themselves. 
+Other resources can include multimedia content, data storage, and other services, that are of interest to the users.
+
+The underlying principles for regulating resources, in general, apply equally to all these different kinds of resources. 
+In practice, the proposed solutions are often customised to better fit a particular problem scenario.
+In our work, we have focused on two scenarios, which provide broad coverage of resource regulation problem in the community network clouds, 
+and our prototypes addressing the two scenarios bring completeness to the solution for managing incentives in community network clouds. 
+
+In \Cref{chap__incentives}, we focus on managing computing resources as VMs among the users.
+We propose efficient regulation mechanisms in the context of a small community of users, 
+perhaps part of a single zone of the community network, 
+which already has trust and strong social relationships among its members.
+Our mechanisms regulate usage of the shared resource of available VMs, 
+and succeed in incentivising contribution from the users.
+This is important in the community cloud model, since without active and continued contribution by the users,
+the model cannot be sustainable and scalable.
+
+In \Cref{chap__trusted_auction}, we broaden our scope to the overall community network 
+where users participating in the community cloud may be from different zones, 
+and have no prior relationships or established trust among them. 
+We focus specifically on the bandwidth available at the Internet gateways in the community network for two main reasons.
+Firstly, the available bandwidth to Internet is limited and 
+already in high demand by the users of the community networks, 
+and secondly, the community cloud services will also require access to Internet 
+often with service-level guarantees for the bandwidth resource.
+We propose a framework for distributed auctioneer that arbitrates users' access to the bandwidth 
+available from the different getaway providers in a fair manner, 
+even in the absence of trust among the users.
+Even though in \Cref{chap__trusted_auction} we develop and evaluate the distributed auctioneer for bandwidth allocation, 
+the proposed framework can be generalised and also directly applied to allocating VMs at a cloud service provider. 
+We can also extend this framework for the scenario of trading VMs from \Cref{chap__incentives}, which we leave for the future work.

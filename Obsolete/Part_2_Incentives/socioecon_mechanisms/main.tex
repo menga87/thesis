@@ -1,0 +1,36 @@
+
+\documentclass[../../main.tex]{subfiles}
+\begin{document}
+
+%%%% This is copied from DCAI/ADCAIJ paper. %%%%
+
+%% *** ABSTRACT
+%\subimport*{\main/Part_2_Incentives/socioecon_mechanisms/}{abstract}
+
+%% *** Introduction
+\subimport*{\main/Part_2_Incentives/socioecon_mechanisms/}{introduction}
+
+%% *** Scenarios
+\subimport*{\main/Part_2_Incentives/socioecon_mechanisms/}{scenarios}
+
+%% *** Costs and Value Analysis
+\subimport*{\main/Part_2_Incentives/socioecon_mechanisms/}{costs_analysis}
+
+%% *** Section: Macroeconomic Policies
+\subimport*{\main/Part_2_Incentives/socioecon_mechanisms/}{design} 
+
+% *** Section: Related Work
+%\subimport*{\main/Part_2_Incentives/socioecon_mechanisms/}{related-work}
+
+% *** Section: Conclusion
+%\subimport*{\main/Part_2_Incentives/socioecon_mechanisms/}{conclusion}
+
+% *** Acknowledgement
+%\subimport*{\main/Part_2_Incentives/socioecon_mechanisms/}{acknowledgement}
+
+\iftoggle{enable_chapter_bib} { %%%
+	\printbibliography
+}
+
+% that's all folks
+\end{document}

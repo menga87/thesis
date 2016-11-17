@@ -1,0 +1,125 @@
+
+\ProvidesPackage{chpcover}
+
+\DeclareOption{singlespace}{\setstretch{1.0}}
+\DeclareOption{doublespace}{\setstretch{1.5}}
+
+\ExecuteOptions{singlespace}
+\ProcessOptions
+
+\font\ch@pnumfont=eurm10 at 2in %cminch -> ams euler
+
+\newbox\s@ch@@ghtb@x
+\setbox\s@ch@@ghtb@x=\hbox{{\normalfont\Huge A}}
+
+% Following requires Computer Modern font
+% For XeLaTeX, install cm-union package
+\font\ch@pnamfont=cmbr8 at 8mm % computer modern bright
+\font\p@rtnamfont=cmbr8 at 13mm % computer modern bright
+\font\s@cnamfont=cmbrsl8 at \ht\s@ch@@ghtb@x % computer modern bright
+
+% Color...
+\definecolor{chapheadcolor}{rgb}{.7,.8,.9}
+
+\def\@makechapterhead#1{
+{
+        \thispagestyle{empty}\hfill
+        \vbox to1.5in{
+                \vfil
+                \hbox to0.8\textwidth{
+                        \hfil
+                        \color{chapheadcolor}%
+                        {\ch@pnumfont\thechapter}
+                        \hbox to0.05\textwidth{}
+                }
+                \vfil
+        }
+        \vskip-1.5in
+        \vbox to1.5in{
+                \vfil
+                \hbox to\textwidth{
+                        \hfil
+                        \ch@pnamfont
+                        \begin{minipage}{0.6\textwidth}
+                                \begin{flushright}
+                                        \baselineskip=30pt
+                                        #1
+                                \end{flushright}
+                        \end{minipage}
+                }
+                \vskip18pt
+                %\vfil
+        }
+}%
+%\pagebreak[4]%
+}
+
+%---------------------------------------------------------------------------
+
+\newbox\@nv@s@bl@
+\setbox\@nv@s@bl@=\hbox{\ch@pnumfont A}
+
+\def\@makeschapterhead#1{
+{
+        \hfill
+        \vbox to\ht\@nv@s@bl@{}
+        \vskip-1.5in
+        \vbox to1.5in{
+                \vfil
+                \hbox to\textwidth{
+                        \hfil
+                        \ch@pnamfont
+                        \begin{minipage}{0.8\textwidth}
+                                \begin{flushright}
+                                        \baselineskip=30pt
+                                        #1
+                                \end{flushright}
+                        \end{minipage}
+                }
+                \vskip18pt
+                %\vfil
+        }
+}}
+
+%---------------------------------------------------------------------------
+
+\def\@part[#1]#2{%
+\thispagestyle{empty}
+    \ifnum \c@secnumdepth >-2\relax
+      \refstepcounter{part}%
+      \addcontentsline{toc}{part}{\thepart\hspace{1em}#1}%
+    \else
+      \addcontentsline{toc}{part}{#1}%
+    \fi
+    \markboth{}{}%
+    {\centering
+     \interlinepenalty \@M
+     \normalfont
+     \ifnum \c@secnumdepth >-2\relax
+        {%
+       \color{chapheadcolor}%
+        {\ch@pnumfont \thepart}}
+       \par
+       \vskip -50\p@
+     \fi
+     {\p@rtnamfont #2}\par}%
+    \@endpart}
+
+%---------------------------------------------------------------------------
+% More settings...
+%\pagestyle{empty}
+
+\headsep=12mm          % distance between header and text
+\topmargin=-5mm
+\textheight=23cm
+\textwidth=16cm
+
+\oddsidemargin=0pt
+\evensidemargin=0pt
+
+\parskip=7pt plus 2pt minus 1pt
+\parindent=7mm
+
+\setcounter{tocdepth}{4}
+\setcounter{secnumdepth}{4}
+\sloppy

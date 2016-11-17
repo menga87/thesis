@@ -1,0 +1,296 @@
+%% preamable.sty
+\ProvidesPackage{preamable}
+
+% Flags to control LaTeX compilation
+\RequirePackage{iftex} % For checking pdfLaTeX or XeLaTeX
+\RequirePackage{etoolbox} % For using condition flags
+\RequirePackage{\main/Template/flags} % For toggling different features
+\RequirePackage{\main/Template/todos} % For reviews commands
+
+% Some very useful LaTeX packages include:
+% (uncomment the ones you want to load)
+
+
+% *** MISC UTILITY PACKAGES ***
+%
+
+
+% *** CITATION PACKAGES ***
+%
+%\RequirePackage{cite}
+% cite.sty was written by Donald Arseneau
+
+% *** ENDNOTE PACKAGE ***
+% Accumulates notes (using the \endnote command, 
+% which can be used as a replacement for \footnote), 
+% and places them at the end of the section, chapter or document.t.
+%%\usepackage{endnotes}
+
+%%\usepackage{pagenote}
+%%\makepagenote
+
+% *** GRAPHICS RELATED PACKAGES ***
+%
+
+\RequirePackage{graphicx}  % XeLaTeX
+% declare the path(s) where your graphic files are
+\graphicspath{{\main/Images/}
+	{\main/Images/graphs/}
+	{\main/Images/Logos/}
+	{\main/Part_1_Introduction/introduction/Images/}	
+	{\main/Part_1_Introduction/related_work/Images/}
+	{\main/Part_1_Introduction/foundations/Images/}
+	{\main/Part_2_Incentives/incentives_regulation/Images/}
+	{\main/Part_3_Trust/truthfulness_bandwidth/Images/}
+	{\main/Part_3_Trust/truthfulness_bandwidth/Images/graphs/}
+	{\main/Part_3_Trust/distributed_trusted_auctioneer/Images/}
+	{\main/endmatter}
+}
+% and their extensions so you won't have to specify these with
+% every instance of \includegraphics
+\DeclareGraphicsExtensions{.pdf,.jpeg,.png,.jpg,.gif}
+% graphicx was written by David Carlisle and Sebastian Rahtz. It is
+% required if you want graphics, photos, etc. 
+
+%% For including figures, graphicx.sty has been loaded in
+%% elsarticle.cls. If you prefer to use the old commands
+%% please give \RequirePackage{epsfig}
+
+%% For XeLaTeX, pdf may not display if using higher version than PDF 1.7
+%% The fix is to change the version to 7 in configuration file dvipdfmx.cfg.
+%% The file is somewhere around this location (on Mac):
+%%    /usr/local/texlive/2015/texmf-config/dvipdfmx/dvipdfmx.cfg
+%% Or instead run XeLaTeX with following command parameters:
+%%	  xelatex.exe -synctex=1 -interaction=nonstopmode -output-driver="xdvipdfmx -V 7" %.tex
+%%
+%% Source: http://tex.stackexchange.com/a/8822/26460
+
+% *** MATH PACKAGES ***
+
+%% The amssymb package provides various useful mathematical symbols
+\RequirePackage{amssymb}
+%% The amsthm package provides extended theorem environments
+\RequirePackage{amsthm}
+
+
+% *** SPECIALIZED LIST PACKAGES ***
+%
+%\RequirePackage{algorithmic}
+% algorithmic.sty was written by Peter Williams and Rogerio Brito.
+% This package provides an algorithmic environment fo describing algorithms.
+
+\RequirePackage[chapter]{algorithm}
+
+% Other packages for algorithms
+\RequirePackage{algorithmicx}
+\RequirePackage{algpseudocode}
+\renewcommand{\algorithmicrequire}{\textbf{Input:}}
+\renewcommand{\algorithmicensure}{\textbf{Output:}}
+
+% *** ALIGNMENT PACKAGES ***
+%
+\RequirePackage{array}
+% Frank Mittelbach's and David Carlisle's array.sty patches and improves
+% the standard LaTeX2e array and tabular environments to provide better
+% appearance and additional user controls. 
+
+
+\RequirePackage{mdwmath}
+\RequirePackage{mdwtab}
+% Also highly recommended is Mark Wooding's extremely powerful MDW tools,
+% especially mdwmath.sty and mdwtab.sty which are used to format equations
+% and tables, respectively. 
+
+
+
+\RequirePackage{eqparbox}
+% Also of notable interest is Scott Pakin's eqparbox package for creating
+% (automatically sized) equal width boxes - aka "natural width parboxes".
+% Available at:
+% http://www.ctan.org/tex-archive/macros/latex/contrib/eqparbox/
+
+
+% *** PDF, URL AND HYPERLINK PACKAGES ***
+%
+\iftoggle{enable_hyperlinks} { %%%
+	\RequirePackage{url}
+	% url.sty was written by Donald Arseneau. It provides better support for
+	% handling and breaking URLs.
+}
+
+
+% correct bad hyphenation here
+\hyphenation{op-tical net-works semi-conduc-tor infra-struc-ture}
+
+%%%%%%%%%% our custom headers %%%%%%%%%%
+
+
+
+%%%%%   FONTS (XElaTEX)   %%%%%
+
+\iftoggle{enable_xelatex}  { %%%
+\ifXeTeX
+	\RequireXeTeX
+
+	\RequirePackage{fontspec} 
+	\defaultfontfeatures{Ligatures=TeX}
+	\defaultfontfeatures{Mapping=tex-text}
+
+	\RequirePackage[ % microtype
+		protrusion=true,
+		final, % enable microtype; use "draft" to disable
+		factor=1100, % add 10% to the protrusion amount (default is 1000)
+		stretch=10, % reduce stretchability/shrinkability (default is 20/20)
+		shrink=10]
+		{microtype}
+	
+	% Handle overfull boxes (see: http://tex.stackexchange.com/a/20590)
+	\emergencystretch=1.5em
+	
+	\RequirePackage{polyglossia}
+	\setdefaultlanguage[variant=uk]{english}
+
+		
+	% fonts for Math symbols
+	% Source: http://tex.stackexchange.com/a/38093/26460
+	%%%\usepackage{amsmath} % always load before mathspec or unicode-math
+	%
+	\usepackage[math-style=ISO]{unicode-math} % try sans-style=upright
+	% A popular package from the American Mathematical Society that provides
+	% many useful and powerful commands for dealing with mathematics. 
+	%
+	%\setmathfont{xits-math.otf}
+
+
+\fi % \ifXeTeX %%%%%%%%%%
+}  %%%\iftoggle{enable_xelatex} 
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% for double quotes. e.g. use \enquote{This is a quotation!}
+\RequirePackage[autostyle]{csquotes} 
+
+% for better table output
+\RequirePackage{multirow}
+\RequirePackage{booktabs}
+
+\RequirePackage[ % BibLaTeX
+	sorting=nty, %
+	style=alphabetic, % {Options: numeric-comp, ieee, authoryear-icomp} 
+	% See: https://www.sharelatex.com/learn/Biblatex_citation_styles
+	doi=false, %
+	isbn=false, %
+	url=false,
+	eprint=false,	
+	backref = true, % include back references in bibliography
+	maxcitenames=3, % affects only the citations in the document body
+	maxbibnames=99, % affects only the bibliography
+	hyperref=true,
+	block=none,
+	backend=\bibbackend % {Options: bibtex, biber}
+	]{biblatex}
+
+\bibliography{\bibfilepath} % path given in flags.sty
+
+% Print in smaller font size
+\renewcommand*{\bibfont}{\bibfontsize}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+% For footnotes in tables
+%\RequirePackage{tablefootnote}
+
+
+% For IEEE equations (if document class different from IEEEtran)
+\RequirePackage{\main/Template/IEEEtrantools}
+
+% multi-file management
+\RequirePackage{import}
+\RequirePackage{subfiles}
+
+
+\RequirePackage{listings}
+
+%%%%%   SPECIAL SYMBOLS   %%%%%
+%\RequirePackage{bbding}
+%\RequirePackage{wasysym}
+%\RequirePackage[gen]{eurosym} % Options: official, gen
+%\RequirePackage{ding}
+
+% Paragraph ruler
+% See: http://tex.stackexchange.com/a/32713/26460
+\newcommand{\parasep}{\begin{center}*\hspace{6em}*\hspace{6em}*\end{center}}
+
+\RequirePackage{silence} % Filter out unwanted warnings and error messages
+
+%%%%%   Line Spacing   %%%%%
+\usepackage{setspace}
+%%\singlespacing
+\onehalfspacing
+%%\doublespacing
+%%\setstretch{1.1}
+
+%%%%%   THEOREMS   %%%%%
+% Commands by Xavier for Infocom paper
+\newtheorem{theorem}{Theorem}[chapter]
+\newtheorem{lemma}{Lemma}[chapter]
+\newtheorem{property}{Property}[chapter]
+\newtheorem{definition}{Definition}[chapter]
+
+%% Above might create issues with cleveref
+%% Source: http://tex.stackexchange.com/a/25052/26460
+
+\newcommand{\A}{\mathcal{A}}
+\newcommand{\commentout}[1]{}
+
+%%%%%%%%% HHYPERREF %%%%%%%%%
+% Load package in the very end!
+% Source: http://www.tex.ac.uk/FAQ-hyperdupdest.html
+
+% For URLs and PDF properties
+\hypersetup{
+%	pdfauthor={\author},
+%	pdftitle={\title},
+	pdfauthor = {Amin M Khan},
+	pdftitle  = {Managing Incentives in Community Network Clouds},
+	unicode, 
+	hyperfigures, 
+	hyperindex, 
+	breaklinks, 
+	linktocpage, 
+	bookmarksnumbered, 
+	bookmarks, 
+	hidelinks
+}
+
+\urlstyle{tt} %options: tt	rm	sf	same
+\renewcommand{\UrlFont}{\scriptsize\tt}
+
+\RequirePackage[figure,table]{hypcap} 
+
+\RequirePackage{bookmark}
+
+% These packages should be after hyperref
+% Better references
+%\RequirePackage{varioref}
+\RequirePackage{cleveref}
+
+% Use special section symbol. See: http://tex.stackexchange.com/a/59890
+\crefname{section}{§}{§§}
+\Crefname{section}{§}{§§}
+
+%%% Conflicts and other notes
+
+
+% Use this order of the packages:
+% \RequirePackage{hyperref}     
+% \RequirePackage{amsthm}     
+% \RequirePackage{cleveref}
+% Source: http://tex.stackexchange.com/a/25051/26460
+
+% play around with floats
+% See: http://www.tex.ac.uk/FAQ-floats.html
+\renewcommand{\floatpagefraction}{.85} % default value is .6
+

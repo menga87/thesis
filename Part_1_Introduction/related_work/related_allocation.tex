@@ -1,0 +1,305 @@
+
+
+% Section: RELATED WORK
+\section{Economic Based Resource Allocation}
+\label{sec__resource_regulation}
+
+% -------------- From ICDCS'16 Paper Submission -------------- %
+
+Most distributed systems have limited resources that need to be shared by many nodes. 
+For instance, in a network there is limited bandwidth that needs to be allocated to multiple nodes. 
+In cloud applications, virtual machines (VMs) need to be allocated to different cloud users. 
+Resource allocation is, therefore, a key problem in distributed systems, 
+and there is a vast literature on resource allocation of shared resources, 
+whether they be network bandwidth, or other general computing resources. %TODO Cite a survey or book
+
+Distributed resource allocation is particularly challenging when nodes
+operate under different spheres of control and may not be willing to cooperate. 
+Namely, a resource allocation strategy that assumes that all nodes 
+execute a given algorithm may break if nodes 
+may extract benefits by deviating from the expected behaviour.
+Many examples of this problem can be found in the literature. 
+The works of~\cite{Lee2007} and~\cite{Xiao2013} illustrate how
+a network user may attempt to monopolise the bandwidth utilisation 
+if it has the opportunity. 
+There is evidence that programmers can instrument their code 
+to get an unfair advantage of several Unix schedulers~\cite{Grosu2005}. 
+In shared infrastructures, like Grid systems, participating
+users try to maximise their own usage to the detriment of 
+the others~\cite{Lai2004}.
+Dynamic wireless spectrum allocation suffers from unfair manipulation~\cite{Zhou2008}.
+Social cloud computing~\cite{Caton2014}
+and cooperative computing systems like BitTorrent~\cite{Liu2010}
+suffer when users act selfishly in consuming resources.
+
+An approach that has emerged as a viable alternative for the problem
+above is to use economic models to address resource allocation, 
+in particular by resorting to auction systems~\cite{Hurwicz1973, Riley1981}. 
+As a result, an extensive literature exists on the use of several types of auctions 
+to perform resource allocation in distributed systems~\cite{Nisan2001, Niyato2013, Waldspurger1992}. 
+In particular, the advent of the cloud computing model, where many
+clients may compete for the resources managed by one or more providers, 
+has spurred the usage of different auction mechanisms for the cloud~\cite{Wang2012When}.
+
+In these approaches, users are modelled as non-cooperative rational
+players who are willing to pay for using resources or get paid for
+providing those resources. Specifically, users declare to an
+auctioneer the preference for different allocations of resources, and
+the auctioneer executes some auction mechanism to derive an allocation
+between users and resources that maximises social welfare (preferences of users for the allocation),
+and the payments to be performed or received by each user. 
+The aim is to obtain an allocation with a social welfare as close as
+possible to the optimal while ensuring truthfulness from the
+users, such that they do not have incentives to lie about their bids. 
+In addition to maximal social welfare and truthfulness, other guarantees may be provided,
+including computational efficiency and budget balance 
+(the payments made by the users outweigh the payments received).
+
+In the following, we look at the state-of-the-art in economic-based resource regulation,
+first for community networks (\cref{sec__related_work_networks}), 
+and then for cloud systems (\cref{sec__related_work_cloud}) 
+both in the context of virtual machines %(\cref{sec__related_work_cloud_vms})
+and network bandwidth. % (\cref{sec__related_work_cloud_bandwidth}) 
+Next, we study managing resource sharing between federations of cloud providers (\cref{sec__related_work_cloud_fed}) .
+
+
+\subsection{Community Networks}
+\label{sec__related_work_networks}
+
+Various pricing schemes, game theoretic mechanisms and auction-based approaches
+for arbitrating network resources have been proposed and used in practice.
+Maillé and Tuffin~\cite{Maille2014} provide a comprehensive survey of the historical
+approaches and the current state-of-the-art from the viewpoint of telecommunication services.
+
+Community networks comprise of wireless mesh and multi-hop networks,
+and require cooperation among its users for proper functioning.
+Game theory, both non-cooperative and cooperative, has been applied in literature for 
+studying the incentives of its user and devising network allocation mechanisms.
+%% Xiao2013: Fairness and efficiency tradeoffs for user cooperation in distributed wireless networks (INFOCOM)
+Xiao et al.~\cite{Xiao2013} propose a general framework for studying the user cooperation in a network, 
+and formalise the relationship between incentive, fairness and efficiency 
+for cooperative networks.
+% Xiao2013: Main focus is on Random Access (RA) networks. Uses cooperative theory. Introduces strong price of fairness idea (SPOF).
+%
+%% Zhou2014: Auction-based bandwidth allocation and scheduling in noncooperative wireless networks (ICC)
+Zhou et al.~\cite{Zhou2014} develop a Vickrey-Clarke-Groves (VCG) based mechanism for non-cooperative users.
+Since VCG mechanism cannot be directly applied because of the high computational complexity,
+they modify it by using relaxation-based greedy algorithm 
+in such a way that it still guarantees strategy-proofness and efficiency.
+%
+% Lee2007: Backbone construction in selfish wireless networks, SIGMETRICS
+Lee et al.~\cite{Lee2007} focus on the problem of backbone construction with selfish users 
+in a community network, who want others to relay their packets but want to avoid relaying packets for others. 
+They propose an incentive-compatible protocol based on Volunteer's Timing Dilemma 
+from non-cooperative game theory.
+Their findings show that using their protocol the backbone forms quickly, 
+with characteristics comparable to protocols designed only for altruistic users.
+
+%TODO cite and explain works from secondary spectrum access ?
+
+Community networks like Guifi.net, in practice, 
+also put emphasis on social sharing agreements~\cite{PicoPeering2005, WCL2010}, 
+and when conflicts occur enforce these agreements through social mechanisms~\cite{Baig2015Guifi}.
+For our context of community network clouds, 
+we accept the guarantees implied by the community networks, 
+and assume that the network is owned by the whole community
+so the traffic within the network between any two nodes is ensured to transit over intermediary nodes. 
+Therefore, when we address the issue of bandwidth reservation in \Cref{chap__trusted_auction}, 
+we focus solely on the gateways present in the community network that provide access to the Internet.
+
+
+\subsection{Cloud Systems}
+%\subsection{Auction-based Resource Allocation}
+\label{sec__related_work_cloud}
+
+With respect to the general computing resources, there
+has been a lot of existing work in the context of 
+Grid systems~\cite{Foster2003, Buyya2005, Courcoubetis2012}
+and shared infrastructures like PlanetLab~\cite{Leon2013Economic}.
+For instance, one of the system implemented for PlanetLab is Tycoon~\cite{Lai2004}, 
+which is a distributed marked-based resource allocation system,
+implementing proportional fairness using decentralised isolated auctions.
+Tycoon allows users to differentiate their jobs based 
+on their importance by specifying different bid amounts.
+Auctioneers manage only local resources, 
+and users submit separate bids to these auctioneers.
+The bids remain valid until a user's credit gets low, 
+so the mechanism reduces manual bidding overhead by the users. 
+Resources are assigned in proportion to the bid amounts using a best-effort approach.
+This allows Tycoon to achieve efficient usage of resources, while maintaining little allocation overhead.
+
+Economic-based resource allocation mechanisms have been extensively explored for cloud 
+computing~\cite{Niu2012, Popa2012, Shi2014, Wang2012When, Zhang2013Framework, Zhang2015Truthful, Zheng2014Star, Zheng2015}.
+Amazon, one of the leading providers of public cloud services, was among the first to offer
+cloud resources using market-driven prices~\cite{BenYehuda2013}.
+Besides investigating how a provider can use economic-based mechanisms to maximise 
+the utilisation of its resources and increase its revenue~\cite{Wang2012When}, 
+the recent research has also looked into devising the best strategies for the users to
+bid for the cloud resources in such a market~\cite{Zheng2015}.
+Many works, for instance ~\cite{Zhang2014Dynamic, Zhang2015Truthful}, 
+employ the celebrated Vickrey-Clarke-Groves (VCG) mechanism~\cite{Nisan2001}
+for achieving truthfulness and a trade-off between 
+maximal social welfare and computational efficiency.
+The challenge in applying VCG mechanisms in clouds is that in most of these problems,
+finding an optimal allocation is NP-hard,
+and so traditional VCG mechanism cannot be applied.
+One key line of work has been to use randomised algorithms~\cite{Zhang2014Dynamic, Zhang2015Truthful},
+or linear programming decomposition techniques~\cite{Niu2013, Zhang2015Online},
+to achieve strategy-proofness with a computationally feasible solution,
+albeit achieving less than optimal social welfare.
+The overall aim is to look for solutions with lower computational complexity, 
+and higher social welfare, while ensuring strategy-proofness.
+
+\subsubsection{Virtual Machines Allocation}
+\label{sec__related_work_cloud_vms}
+
+Cloud computing employs virtualization to package computing resources like CPU time, memory, and storage as virtual machines (VMs). 
+Therefore, resource allocation in cloud, for the most part, deals with composing VMs 
+from the hardware resources, and allocating them to the users in the most efficient manner. 
+Cloud providers offer a variety of VM instances of different types, where type refers 
+to the composition of different resources packaged in the VM instance. 
+For example, a VM consisting of 2 virtual CPU units, 8 GB RAM and 100 GB storage is one type of VM. 
+%% Zhang2015Truthful: A Truthful (1-ϵ)-Optimal Mechanism for On-demand Cloud Resource Provisioning
+Zhang et al.~\cite{Zhang2015Truthful} extend this to allow users to request 
+customised dynamically assembled VM types, 
+bundling VMs from different geo-distributed data centres of the provider.
+They use smoothed analysis and randomised reduction 
+to design a randomised, highly efficient auction mechanism.
+Their mechanism is general and expressive enough to encompass various cloud scenarios, 
+and achieves truthfulness (in expectation), 
+polynomial running time (in expectation), 
+and $(1-\epsilon)$-optimal social welfare (in expectation) 
+for resource allocation in a geo-distributed cloud, where $\epsilon \in (0,1)$.
+
+%% Zhang2014Dynamic: Dynamic resource provisioning in cloud computing: A randomised auction approach
+Zhang et al.~\cite{Zhang2014Dynamic} approach combinatorial
+auctions of heterogeneous VMs by modelling social welfare maximization
+as a mixed linear integer program. 
+They design an efficient $\alpha$-approximation algorithm,
+with $\alpha\! \sim\! 2.72$ in typical scenarios.
+They use this algorithm as a building block for designing 
+a randomised combinatorial auction that is computationally efficient, 
+truthful in expectation, and guarantees the same social welfare approximation factor $\alpha$. 
+They utilise a pair of tailored primal
+and dual linear programs (LPs) to decompose fractional solution 
+of social welfare maximization problem into a convex combination of integral solutions.
+%The randomised auction achieves the same approximation ratio 
+%in social welfare as the cooperative algorithm does.
+
+%% Niu2013: An Efficient Distributed Algorithm for Resource Allocation in Large-Scale Coupled Systems
+
+%TODO Any other recent work 
+
+\subsubsection{Bandwidth Reservation}
+\label{sec__related_work_cloud_bandwidth}
+
+The focus remains mostly on efficiently allocating VMs in the cloud, 
+even though the bandwidth, both upstream and downstream, to connect to VMs in the cloud is metered.
+Bandwidth allocation and reservation gains significance, 
+in particular when the applications are network-intensive or have real-time constraints.
+Some prime examples are video-streaming, video-on-demand and cloud-based gaming. 
+Recent work has explored various economic based bandwidth allocation
+schemes for public clouds~\cite{Gui2014Soar, Guo2013, Niu2012, Popa2012, Shen2014NewBandwidth, Zheng2014Star}.
+The emphasis in the cloud has been on having bandwidth reserved with service level guarantees for the cloud applications.
+
+%% Gui2014Soar: SOAR: Strategy-proof auction mechanisms for distributed cloud bandwidth reservation
+Gui et al.~\cite{Gui2014Soar} propose VCG-auction based mechanisms for reserving bandwidth 
+at the multiple geo-distributed data centres of the cloud provider. 
+The users submit bandwidth reservation requests separately for each of the data centres.
+In case the users can accept partially fulfilled requests, 
+i.e.~bandwidth reserved up to the maximum requested, 
+a solution can be calculated using linear programming in polynomial time,
+which achieves both optimal social welfare and strategy-proofness.
+However, if partial reservations are not permissible, 
+the allocation problem is NP-hard, so the above polynomial time algorithm
+cannot be used to calculate optimal allocation. 
+The authors propose a heuristics-based greedy algorithm that guarantees strategy-proofness,
+though provides less than optimal social welfare.
+%
+%% Zheng2014Star: STAR: Strategy-Proof Double Auctions for Multi-Cloud, Multi-Tenant Bandwidth Reservation
+Zheng et al.~\cite{Zheng2014Star} focus on a multi-cloud scenario where 
+users need to reserve bandwidth from different cloud providers, 
+because they have strict requirements on the amount of bandwidth for guaranteeing their quality of services. 
+They model this open market of cloud providers as a double-sided auction, 
+where providers also submit bids to the auctioneer besides the users,
+and propose strategy-proof mechanisms based on McAfee double auction~\cite{Myerson1983}.
+
+% Shen2014: New bandwidth sharing and pricing policies to achieve a win-win situation for cloud provider and tenants (INFOCOM)
+Shen and Li~\cite{Shen2014NewBandwidth} propose a bandwidth pricing model, 
+a network bandwidth sharing policy and flow arrangement policies, 
+and use non-cooperative game theory analysis.
+Their policies encourage cooperation among the tenants of the cloud infrastructure, 
+who are incentivised to prefer uncongested links and constrain congestion.
+%
+% Guo2013: A cooperative game based allocation for sharing data center networks
+Guo et al.~\cite{Guo2013} focus on the bandwidth available within the data centre infrastructure, 
+on the links connecting the multiple VMs owned by the tenants.
+They apply cooperative game-theoretic framework to design a distributed algorithm 
+to achieve efficient and fair bandwidth allocation corresponding to the Nash bargaining solution.
+
+%% Some other papers
+%% Popa2012: FairCloud: sharing the network in cloud computing (SIGCOMM)
+%% Niu2012: Pricing cloud bandwidth reservations under demand uncertainty
+
+\subsection{Cloud Federations}
+\label{sec__related_work_cloud_fed}
+
+Aside from public clouds, another emerging model in cloud computing involves 
+cloud providers trading of VM resources among themselves, 
+referred to as federating their individual clouds.
+There are various terms for this scenario in literature 
+such as federated clouds, Intercloud, community clouds, cloud brokerage, etc. 
+In this case, cloud providers agree to provision VMs for each other, 
+for instance one provider can solicit additional resources from others to satisfy peaks in demands.
+Such a federated or community cloud presents the challenge of a free market,
+where participants have the incentive only to accept 
+those resource exchanges that are profitable for them. % sentence paraphrased from Zhao2014
+%% Zhao2014: Towards efficient and fair resource trading in community-based cloud computing
+Zhao at al.~\cite{Zhao2014} develop a distributed market-oriented model for 
+the resource negotiation and trading problem in such a community cloud.
+They use this model to propose a multi-agent based approach 
+that provides an efficient and fair resource allocation for a group of autonomous cloud providers.
+They also consider resource trading under budget constraints, 
+and based on a directed hypergraph model, present effective heuristic-based distributed protocols to achieve resource allocation within budget limits.
+
+%% Social Cloud (Pairwise Matching, Virtual Credits and Currencies)
+Social cloud computing~\cite{Caton2014, Punceva2013} similarly focuses on 
+trading resources between cloud providers, 
+who in this case are individual users of online social networks, like Facebook, Twitter, etc.
+Punceva et al.~\cite{Punceva2013} propose a decentralised resource sharing model, and use virtual currency to incentivise cooperation 
+without requiring a central reputation management system. 
+They differentiate between intra-community and inter-community sharing, 
+where a community consists of a group of \enquote{friends} on social networks, 
+because the trust inherent within a tightly knit community aids in designing a more flexible virtual currency representation.
+Caton et al.~\cite{Caton2014} focus more on improving how the providers are matched to the users in a social cloud.
+They propose heuristics based matching algorithms for 
+bidirectional preference-based socially-aware resource allocation, 
+with the aim to optimise social welfare and allocation fairness.
+
+
+%% Li2013: Virtual Machine Trading in a Federation of Clouds: Individual Profit and Social Welfare Maximization
+Li et al.~\cite{Li2013Profit} study how individual cloud providers can maximise their profits through better resource trading and scheduling.
+They apply a double auction-based mechanism,
+which is strategy proof, individual rational, and ex-post budget balanced. 
+Based on this auction mechanism, they propose an efficient and dynamic resource trading and scheduling algorithm, 
+which carefully computes the true valuations of VMs in the auction, and aims to
+optimally schedule stochastic job requests onto the VMs. 
+%and judiciously turns on and off servers based on the current electricity prices. Through rigorous analysis, we show that each individual cloud, by carrying out our dynamic algorithm, can achieve a time-averaged profit arbitrarily close to the offline optimum.
+%
+%% Palmieri2013Distributed: A distributed scheduling framework based on selfish autonomous agents for federated cloud environments
+Palmieri et al.~\cite{Palmieri2013Distributed} focus on scheduling resources within federated clouds, 
+and present a fully distributed agent-based game-theoretic scheme 
+for scheduling computing resources between providers in federated clouds.
+Their scheme is based on independent, competing, and self-interested task execution agents, with the goal to achieve an optimum social welfare
+criteria towards a Nash equilibrium solution,
+using a slotted time model to provide advance reservation of resources in a fully distributed manner. 
+%The agents' behaviour is also conditioned by marginal costs, to
+%force some kind of implicit coordination between the (often conflicting) objectives of the various entities
+%involved in the cloud. Due to its inherent parallel nature, such schema can provide a significantly better
+%scalability in presence of a large number of tasks and resources involved into the scheduling system.
+
+%% InterCloud
+
+For the scenario of community network clouds, 
+we consider members of community networks as cloud providers, 
+and present efficient incentives based mechanisms for allocating cloud resources in \Cref{chap__incentives}.

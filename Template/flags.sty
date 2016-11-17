@@ -1,0 +1,94 @@
+
+% flags
+\ProvidesPackage{flags}
+
+%%%%%%%%%% Flags Definitions %%%%%%%%%%
+
+\newtoggle{prepare_camera_ready}	% Remove any extra customisations, prepare camera ready version
+
+\newtoggle{fancy_fonts} 			% Conditionally include fancy fonts 
+\newtoggle{fancy_header_fonts} 		% Conditionally include fancy fonts for headings, sans and mono 
+
+\newtoggle{blind_review}			% Hide details for blind review
+
+\newtoggle{enable_xelatex}			% Use XeLaTeX for compilation
+
+\newtoggle{enable_hyperlinks}		% Use hyperref and url packages
+\newtoggle{enable_biblatex}			% Use biblatex for bibliography
+\newtoggle{enable_todo}				% Show todo notes
+\newtoggle{enable_color}			% Use colors and highlighting etc
+\newtoggle{enable_headings}			% Use page numbers etc 
+
+\newtoggle{enable_chapter_bib}
+
+%%%%%%%%%% Uncomment to enable flag settings %%%%%%%%%%
+
+%\global\toggletrue{prepare_camera_ready}
+%\global\toggletrue{blind_review} 
+
+\global\toggletrue{fancy_fonts} 
+\global\toggletrue{fancy_header_fonts}
+
+\global\toggletrue{enable_hyperlinks}
+\global\toggletrue{enable_biblatex}
+%\global\toggletrue{enable_todo}
+%\global\toggletrue{enable_color}
+%\global\toggletrue{enable_headings}
+
+\global\toggletrue{enable_xelatex}
+
+%\global\toggletrue{enable_chapter_bib}
+
+%%%%%%%%%% Working with subfiles %%%%%%%%%% 
+% when compiling just one chapter in subfiles
+%\renewcommand{\main}{../..} % point to the main folder relative to here
+%\global\toggletrue{enable_chapter_bib} % print the references for this chapter
+% above commands get skipped when compiling the whole document
+
+%%%%%%%%%% Some string commands %%%%%%%%%% 
+
+%%% Specify location for bibliography file
+
+%% Just the main bib file in local working directory
+\newcommand{\bibfilepath}{\main/Bibliography/references}
+%% The whole library from Mendeley (copied locally)
+%\renewcommand{\bibfilepath}{\main/Bibliography/library}
+%% The up-to-date bibtex file synced from Mendeley library 
+%\renewcommand{\bibfilepath}{\main/../../Mendeley-Bibliography/library} 
+
+% The bib file for my own publications list
+\newcommand{\mypublicationsbib}{\main/Bibliography/mypublications}
+
+%%% Specify location for bibtex template style file
+\newcommand{\bibstylefile}{\main/Template/IEEEtranBST/IEEEtran} 
+\renewcommand{\bibstylefile}{plain}
+
+%%% Specify the backend to use with BibLaTeX
+\newcommand{\bibbackend}{biber}
+%\renewcommand{\bibbackend}{bibtex}
+
+%%% Specify font size for bibliography
+\newcommand{\bibfontsize}{\normalsize}
+\renewcommand{\bibfontsize}{\small}
+
+%%%%%%%%%%%%%%%%%%%% CAMERA READY PREPARATION %%%%%%%%%%%%%%%%%%%
+\iftoggle{prepare_camera_ready} { %%%
+
+	\RequirePDFTeX % No XeLaTeX etc
+	
+	\global\togglefalse{fancy_fonts} % No fancy fonts
+	\global\togglefalse{fancy_header_fonts} % No fancy fonts
+	
+	\global\togglefalse{blind_review} % Include authors information
+	
+	\global\togglefalse{enable_xelatex}
+	
+	\global\togglefalse{enable_hyperlinks}
+	\global\togglefalse{enable_biblatex}
+	\global\togglefalse{enable_todo}
+	\global\togglefalse{enable_color}
+	\global\togglefalse{enable_headings}
+	
+	\renewcommand{\bibfilepath}{\main/Bibliography/references} % load bib file from local directory
+}{ %%% else
+}

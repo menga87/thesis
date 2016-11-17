@@ -1,0 +1,31 @@
+%
+\documentclass[../../main.tex]{subfiles}
+
+\begin{document}
+
+
+%%%% This is copied from submission to ICDCS 2016. %%%%
+
+
+%% *** Section: Model
+\subimport*{\main/Part_3_Trust/distributed_trusted_auctioneer/}{model}
+
+%% *** Section: Proposal
+\subimport*{\main/Part_3_Trust/distributed_trusted_auctioneer/}{design} 
+
+% *** Section: Evaluation
+\subimport*{\main/Part_3_Trust/distributed_trusted_auctioneer/}{evaluation} 
+
+% *** Section: Conclusion
+\subimport*{\main/Part_3_Trust/distributed_trusted_auctioneer/}{conclusion}
+
+% *** Appendix
+%\cleardoublepage
+%\subimport*{\main/Part_3_Trust/distributed_trusted_auctioneer/}{appendix}
+
+\iftoggle{enable_chapter_bib} { %%%
+	\printbibliography
+}
+
+% that's all folks
+\end{document}

@@ -1,0 +1,17 @@
+%
+% Section: DISCUSSION
+\subsection{Discussion}
+\label{sec__truthful_pricing_discussion}
+
+We find that static pricing schemes like fixed usage-based pricing and priority pricing are not very useful for arbitration between requests from different priority classes,
+since it is hard to avoid everyone reporting their requests as higher priority~\cite{Maille2014}.
+Dynamic pricing, for example, based on first-price auction can help here but with this simple auction scheme users report bid amounts lower than their true valuation of the bandwidth resource~\cite{Maille2014}.
+VCG mechanism, when either using optimal allocation algorithms~\cite{Nisan2001} or approximate allocation algorithms~\cite{Zhang2015Truthful}, can ensure truthfulness but is often computationally intensive to implement in practice.
+Generalised second price (GSP) auction mechanism, an extension of VCG, is not as computationally intensive as VCG and even though it doesn't guarantee truthfulness, it shares many desirable properties of VCG~\cite{Maille2014}.
+
+These results show that auction-based mechanisms are good candidates 
+for using in allocation algorithms for bandwidth reservation in community network clouds.
+However, these mechanisms assume that a centralised auctioneer exists that can be trusted to to execute the allocation algorithm as designed.
+In the absence of a trusted auctioneer, the truthfulness guarantees of mechanisms like GSP and VCG no longer hold.
+To address the shortcoming that a centralised trusted auctioneer is not feasible in community network clouds, 
+we present our proposal for a virtual distributed auctioneer in \Cref{sec__dist_auctioneer_design}.

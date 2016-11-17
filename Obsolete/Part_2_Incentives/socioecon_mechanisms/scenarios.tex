@@ -1,0 +1,137 @@
+
+
+% Section: SCENARIOS
+\section{Social and Economic Context of Community Network Clouds}
+%\section{Cloud Scenarios in Community Networks}
+\label{sec:community-networks-scenarios}
+
+We consider clouds in community networks, a community cloud that provides services built from using resources available from within the community networks and owned and managed by the members of the community networks themselves.
+Such a community cloud infrastructure that is deployed in real community networks needs to be designed according to the conditions and characteristics of community networks, which also determine the most likely scenarios for these community clouds.
+
+%%
+\begin{figure}[tbp]
+   \centering
+   \includegraphics[width=0.65\textwidth,keepaspectratio]{com_node_with_cloud_res}
+   \caption{Nodes in a community network with cloud resources}
+   \label{fig:community-network}
+\end{figure} 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Background on Community Networks}
+A community network like Guifi.net is organised into zones where a zone can be a village, a small city, a region, or districts of a larger city.
+Mostly, the detailed technical support for the members is only available within the community of their zone~\cite{Vega2012}, so we identify a zone to have the highest social strength within the community network.
+The computer machines or nodes in a community network vary widely in their capacity, function and capability, as illustrated in Figure~\ref{fig:community-network}.
+Some hardware is used as super nodes that have multiple wireless links and connect with other super nodes to form the backbone of the community network~\cite{Vega2012}.
+Others act just as clients and are only connected to the access point of a super node. 
+As depicted in Figure~\ref{fig:community-network}, resources for the community cloud can be attached to the networking nodes.
+
+\begin{figure}[tbp]
+   \centering
+		\includegraphics[width=0.4\textwidth,keepaspectratio]{outdoor_node2}
+		\caption{SN with outdoor hardware for wireless links}
+		\label{fig:outdoor_node}
+\end{figure} 
+
+Figure~\ref{fig:outdoor_node} shows the outdoor view of a community network SN. 
+The equipment, mainly antennas and radios, is used for building wireless links between other SNs. 
+Figure~\ref{fig:SN_Real} shows an example of the indoor hardware of a SN. 
+The router used is a Microtik RB750, while a Jetway JBC362F36W with Intel Atom N2600 CPU, 2GB RAM and 64GB USB has been added to become a cloud resource for the community cloud.
+A laptop is used as an additional server, while a UPS keeps the node running in the case of power failure.
+
+\begin{figure}[tbp]
+   \centering
+		\includegraphics[width=0.75\textwidth,keepaspectratio]{SN_Real}
+		\caption{Indoor hardware of a community network node with router, server and cloud resource}
+		\label{fig:SN_Real}
+\end{figure} 
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection{Social aspects of community networks}
+
+Personal and social relationships play an important role in the community network deployment. 
+The deployment of new nodes requires the collaboration among people. 
+If a new node is deployed, the owners of the neighbouring nodes need to connect with it, thus there has to be an interaction among the people. 
+Two types of social networks can be observed from Guifi.net's mailing list~\cite{GuifinetForum}. 
+One is at the global level of the whole Guifi.net network. 
+In this list, technical issues are discussed. 
+People from any part of Guifi.net community participate, and even external people who are interested can take part. 
+The second type is the local social network, between node owners within a zone and between neighbouring zones. 
+They use local mailing lists as well as hold weekly meetings.
+
+Guifi.net is organised into zones. 
+A zone can be a village, a small city, a region, or a district of a larger city. 
+The organization of the group within a zone is of many types. 
+Mostly the interests, available time and education of the people drive what happens in the zone. 
+We note that while the allocation of IP addresses and layer 3 networking is agreed among all Guifi.net zones, as it is needed to make the IP network work, the detailed technical support is rather given within the local community of the zone. 
+Therefore, we identify a zone to have the highest social strength within the community network.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection{Members of community networks}
+
+Participants of community networks are principally consumers and producers of the network. 
+Most of them as producers contribute infrastructure and time to the networks, while as consumers they use the available services the network offers. 
+The community network, however, is not maintained solely based on the contribution of infrastructure. 
+Some users must also contribute with their time and knowledge.
+Time is needed, for instance, for maintenance tasks, which might require technical knowledge or not. 
+Technical knowledge is required because the network is an IP network, which needs to be managed and configured. 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection{Resource sharing in community networks}
+
+Community networks are a successful case of resource sharing among a collective. 
+The resources shared are networking hardware but also community network participants' time that they donate, to different extent, for maintaining the network. 
+While the community network infrastructure is the sum of the individual contributions of wireless equipment, the network operation is achieved by the contribution of time and knowledge of the participants.
+This is because even under the decentralised management of the equipment, the owner of the device ultimately has the full access and control of that network device.
+
+Reciprocal resource sharing is, in fact, part of the membership rules or peering agreements of many community networks. 
+The Wireless Commons License (WCL)~\cite{WCL2010} of many community networks states that the network participants that extend the network, e.g. contribute new nodes, will extend the network in the same WCL terms and conditions, allowing traffic of other members to transit on their own network segments.
+Therefore, resource sharing in community networks from the equipment perspective refers in practice to the sharing of the nodes' bandwidth. 
+This sharing, done in a reciprocal manner, enables the traffic from other nodes to be routed over the nodes of different node owners and allows community networks to successfully operate as IP networks. 
+We observe that in most community networks the focus at the moment is on the bandwidth sharing alone.
+There is not much awareness about sharing other computing resources, such as storage or CPU time, inside of community networks. 
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection{Ownership of nodes in community networks}
+
+Community networks grow organically. 
+Typically a new member that wants to connect to the community network contributes with the hardware required to connect to other nodes. 
+A node of a community network therefore belongs to the member who is its sole owner. 
+Such a node is normally located in the member's premises. 
+
+Although less typical, a few nodes in Guifi.net have also been successfully crowd-funded if such a node was needed by several people. 
+Crowd-funding of a node happened when for a group of people an infrastructure improvement was necessary. 
+For example, an isolated zone of Guifi.net established a super node to connect to other zones. 
+In such a case, the node has been purchased with the contributions of many people. 
+The location of such a node follows strategic considerations, trying to optimise the positive effects on the performance that are achieved with the addition of the new infrastructure.
+We can see that both the options, individual ownership and crowd-funding of resources, occur in practice and could be considered for community clouds.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection{Services in community networks} 
+
+Services and applications offered in community networks usually run on the machines that the member connects to the network and these machines are used exclusively by that member. 
+The usage of the community network's services among its members, beyond that of access to the Internet, is however not very strong.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Cloud Scenarios in Community Networks}
+
+\subsubsection{Local Community Cloud}
+\label{sec:loc-cloud}
+The cohesive nature of zones gives rise to the scenario of the \emph{local community cloud}, interpreting the characteristics of the social networks existing within zones and the topology of the community network. 
+In this scenario, some super nodes with their better connectivity and high availability are responsible for the management of a set of attached nodes that are contributing cloud resources.
+
+\begin{figure}[tbp]
+   \centering	
+		\includegraphics[width=0.60\textwidth,keepaspectratio]{federated_cloud}
+		\caption{Nodes in federated community cloud}
+		\label{fig:federated_cloud}	
+\end{figure}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection{Federated Community Cloud}
+\label{sec:fed-cloud}
+Local community cloud can provide services for the users within its zone. 
+Multiple cloud nodes from different zones in a community network, however, can participate together in a \emph{federated community cloud} to support greater functionality and higher capacity.
+The nodes in a given zone are directly managed by a super node in that zone but they can also consume resources from other zones, given that there is a coordination mechanism among zones in place.
+Within an economic context, the local community cloud is an example of a virtual organisation, and the federated scenario represents the peering agreements between multiple virtual organisations. 

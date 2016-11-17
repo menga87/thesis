@@ -1,0 +1,35 @@
+
+% Section: CONCLUSION
+\section{Summary}
+\label{sec__dist_auctioneer_conclusion}
+
+Resource allocation is a fundamental problem in networked systems and the design of auction mechanisms that can provide properties such as
+truthfulness, budget balance, and maximal social welfare have been extensively studied in the literature. 
+These works assume a centralised trusted auctioneer that can faithfully execute the allocation algorithm. 
+Unfortunately, many networked systems of today, such as \enquote{clouds of clouds}, edge clouds, and community networks, among others, lack a central trusted point of control (and, if it existed, it would be a bottleneck). 
+In this chapter, we have addressed the theoretical and practical challenges that need to be overcome to bridge this gap. 
+More precisely, we have proposed a novel distributed framework for devising Nash equilibria 
+distributed simulations of the auctioneer that are resilient to asynchrony and coalitions. 
+Furthermore, our framework allows for the parallelisation of the allocation algorithm, 
+leveraging the distributed nature of the simulation, which is of paramount practical importance given that, 
+in many allocation algorithms, achieving maximal social welfare is computationally intensive. 
+We have devised implementations of the framework in a realistic testbed of one of the largest community networks deployed today, 
+and have gathered experimental evidence that the overhead of the emulation 
+is not significant, 
+even in the cases the allocation algorithm cannot be parallelised, 
+and brings substantial gains in the case parallelisation is possible. 
+This shows that our approach can be used as a building block to implement resource allocation in decentralised networks.
+
+\subsection*{Notes}
+The results presented in this chapter were accomplished in cooperation 
+with my co-advisor Luís Rodrigues and Xavier Vilaça, another PhD student at IST. 
+Xavier did provide relevant contributions to the design of the game theoretical framework.
+
+The study on the need for incentive-compatible pricing mechanisms (\cref{sec__truthful_pricing_introduction}) 
+was presented in the paper 
+	\enquote{\emph{Towards Incentive-Compatible Pricing for Bandwidth Reservation in Community Network Clouds}}~\cite{Khan2015Towards}, 
+	in 12th International Conference on Economics of Grids, Clouds, Systems, and Services (GECON 2015), 
+	Cluj-Napoca, Romania, September 2015.
+The results for Distributed Auctioneer were published as a full paper 
+	\enquote{\emph{A Distributed Auctioneer for Resource Allocation in Decentralized Systems}}~\cite{Khan2016Distributed}, 
+	in 36th IEEE International Conference on Distributed Computing Systems (ICDCS 2016), Nara, Japan, June 2016.

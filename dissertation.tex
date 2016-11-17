@@ -1,0 +1,96 @@
+%!TEX TS-program = xelatex
+%!TEX encoding = UTF-8 Unicode
+
+
+\documentclass{Dissertate}
+
+% Load custom packages
+\providecommand{\main}{.} 
+\usepackage{Template/preamable}
+\usepackage{Template/style}
+
+\begin{document}
+
+% the front matter
+\input{frontmatter/personalize}
+% \maketitle
+% \copyrightpage
+\frontmatter
+\setstretch{1.2}
+% \abstractpage
+% \tableofcontents
+% %\authorlist
+% \listoffigures
+% \dedicationpage
+% \acknowledgments
+
+% \doublespacing
+
+% include each chapter...
+% ----------------------------------------------------------------------
+%  Chapters (Part 1)
+% ----------------------------------------------------------------------
+
+%% *** Introduction
+\subfile{Part_1_Introduction/introduction/main}
+
+%% *** State-of-the-Art
+\subfile{Part_1_Introduction/related_work/main}
+
+%% *** Middleware
+\subfile{Part_1_Introduction/foundations/main}
+
+% ----------------------------------------------------------------------
+%  Chapters (Part 2)
+% ----------------------------------------------------------------------
+
+%% *** Incentives in Community Clouds
+\subfile{Part_2_Incentives/incentives_regulation/main}
+
+% ----------------------------------------------------------------------
+%  Chapters (Part 3)
+% ----------------------------------------------------------------------
+
+\chapter{Managing Incentives with Untrusted Users}
+\label{chap__trusted_auction}
+
+%% *** Introduction
+\subimport*{Part_3_Trust/distributed_trusted_auctioneer/}{introduction}
+
+%% *** Truthfulness
+\subfile{Part_3_Trust/truthfulness_bandwidth/main}
+
+%% *** Distributed Auctioneer
+\subfile{Part_3_Trust/distributed_trusted_auctioneer/main}
+\cleardoublepage
+
+% ----------------------------------------------------------------------
+%  Chapters (Part 4)
+% ----------------------------------------------------------------------
+
+% *** Conclusion
+\subfile{Part_4_Conclusion/conclusion/main}
+
+% ----------------------------------------------------------------------
+%  Bibliography
+% ----------------------------------------------------------------------
+
+% Add entry in the table of contents as chapter
+\phantomsection
+\addcontentsline{toc}{chapter}{\bibname}
+
+\printbibliography
+
+% ----------------------------------------------------------------------
+
+%\setstretch{1.2}
+
+% the back matter
+%\clearpage
+%\bibliography{references}
+%\addcontentsline{toc}{chapter}{References}
+%\bibliographystyle{apalike2}
+
+\include{endmatter/colophon}
+
+\end{document}

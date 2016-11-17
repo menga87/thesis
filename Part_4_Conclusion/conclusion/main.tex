@@ -1,0 +1,33 @@
+
+\documentclass[../../main.tex]{subfiles}
+\begin{document}
+
+\chapter{Conclusion}
+\label{chap__conclusions}
+
+% *** Section: Conclusion
+\subimport*{\main/Part_4_Conclusion/conclusion/}{conclusion}
+
+% *** Section: Collaborations
+\subimport*{\main/Part_4_Conclusion/conclusion/}{collaborations}
+
+%%% *** 
+%\subimport*{\main/Part_4_Conclusion/conclusion/}{work_progress}
+%
+%%% *** 
+%\subimport*{\main/Part_4_Conclusion/conclusion/}{discussion}
+
+% *** Future Work
+\subimport*{\main/Part_4_Conclusion/conclusion/}{future}
+
+% *** Final Notes
+\subimport*{\main/Part_4_Conclusion/conclusion/}{pubs_notes}
+
+\iftoggle{enable_chapter_bib} { %%%
+	\printbibliography
+}
+
+\cleardoublepage
+
+% that's all folks
+\end{document}

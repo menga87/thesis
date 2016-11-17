@@ -1,0 +1,34 @@
+
+% FUTURE WORK
+\section{Future Work}
+\label{sec__future_work}
+
+%%-------- FROM AINA 2014 -----
+Carrying onwards from the experience and results with the prototype implementations, 
+a working service needs to be developed further, 
+that provides the feedback loop between the users' contribution and experience, 
+and will be inevitable for adoption, sustainability, maintenance and growth of cloud infrastructures in community networks. 
+Larger scale deployments are required with extended implementation of the different components of the community cloud framework.
+This should be complemented by additional services and applications deployed in the cloud infrastructure, 
+which will provide enhanced value and utility to the members of community networks for their contribution towards the community cloud. 
+
+%%-------- FROM GECON 2015 -----
+With respect to bandwidth allocation mechanism,
+there are others challenges, for instance, multiple users may be connected to the provider 
+using the same path in the community network, 
+and reserving bandwidth for such users in the same time interval 
+may cause congestion across some of the links, 
+which an intelligent allocation algorithm should try to avoid.
+Moreover, any bandwidth reservation scheme should not negatively impact the normal operation 
+of the community network, 
+so allocation mechanism needs to be adaptive to the network congestion and bandwidth usage in the community network.
+
+%%-------- RELATED TO INFOCOM 2015 -----
+For distributed auctioneer, we have considered only rational users, and we plan to extend our framework to the Byzantine users.
+In the current model, we assumed all providers to be fully inter-connected. 
+But in the case of federated community clouds, it is possible that
+providers in different local clouds may not have very good connections between them, 
+and so the current approach may result in slow down.
+In such cases, we plan to explore how to adapt our distributed auctioneer to different network topologies.
+%In this case, it could be better to have a tree like structure with providers calculating values in sub-trees near the leaves, 
+%values being propagated up the tree, until we have a final outcome at the root. 

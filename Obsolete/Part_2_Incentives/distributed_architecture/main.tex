@@ -1,0 +1,35 @@
+
+\documentclass[../../main.tex]{subfiles}
+\begin{document}
+
+%%%% This is copied from INCoS Paper. %%%%
+
+% ABSTRACT
+%\subimport*{\main/Part_2_Incentives/distributed_architecture/}{abstract}
+
+%% *** Introduction
+\subimport*{\main/Part_2_Incentives/distributed_architecture/}{introduction}
+
+% *** Section: Related Work
+%\subimport*{\main/Part_2_Incentives/distributed_architecture/}{related-work}
+
+% *** Section: Requirements
+\subimport*{\main/Part_2_Incentives/distributed_architecture/}{requirements}
+ 
+%% *** Section: Architecture and Design
+\subimport*{\main/Part_2_Incentives/distributed_architecture/}{design} 
+%\subimport*{\main/Part_2_Incentives/distributed_architecture/}{trusted_acutioneer} 
+\subimport*{\main/Part_2_Incentives/distributed_architecture/}{cloudy} 
+
+% *** Section: Deployment
+%\subimport*{\main/Part_2_Incentives/distributed_architecture/}{deployment} 
+
+% *** Section: Conclusion
+\subimport*{\main/Part_2_Incentives/distributed_architecture/}{conclusion}
+
+\iftoggle{enable_chapter_bib} { %%%
+	\printbibliography
+}
+
+% that's all folks
+\end{document}

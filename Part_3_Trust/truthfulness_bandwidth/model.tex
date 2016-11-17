@@ -1,0 +1,148 @@
+
+% Section: SYSTEM MODEL
+\subsection{System Model}
+\label{sec:model}
+
+We consider a bandwidth provider $\mathcal{P}$ in the community network and a set of N users $\{1, 2, \ldots N\}$. % $\mathbb{P}$
+The provider operates a gateway to the Internet, which allows access to resources outside the community network for the users.
+The users are connected to the provider's gateway through the wireless and fibre links in the community network~\cite{Baig2015Guifi}, 
+and the applications in community network cloud access their external servers and Internet through this gateway.
+Figure~\ref{fig__external_bandwith_mesh_network} shows the users in the community network connected to the provider through multiple such paths, where only few of these users are the clients of the provider for reserving bandwidth.
+
+The provider processes the requests in a queue at the gateway, where time in the queue is divided into an infinite sequence of slots starting from $1$, 
+where all the available bandwidth is allocated to exactly one user in each slot.
+The provider allocates the slots in batch after receiving all the requests from $N$ users and assigns the next $N$ slots, one to each user.
+We choose this model for simplicity, and we divide users into different priority classes based on their slots in the queue, as discussed below.
+Our findings are applicable to other models, for instance where all the available bandwidth is shared between the users at the same time.
+In this case, we can have priority classes based on the quality of different links, for example.
+Considering the provider has two links to the Internet, high priority requests are assigned to the better link with low latency, less packet loss, etc., 
+while the low priority requests are assigned the other link.
+The discussion and findings presented below can equally apply to this alternate model as well. 
+
+We divide the users into two priority classes, $h \in \{0, 1\}$,
+some have lower priority requests, $h_0$,
+and some have higher priority requests, $h_1$.
+Here in this model, the main consideration for higher priority requests is that they are more sensitive to the waiting time,
+and prefer to reserve earlier slots in the queue.
+Provider $\mathcal{P}$ aims for an optimal schedule when allocating the slots to the users, 
+so as to maximise its revenue
+and the overall utility for all the users.
+We provide formal details below.
+
+\paragraph{Schedule} A schedule $\phi$ maps each time slot $t$ to a user $i$.
+
+\paragraph{Value} For any schedule $\phi$ and user $i$, let $t$ be the
+slot assigned to user $i$, then 
+$v_i(h, t)$ is the valuation given by $i$
+for being allocated time slot $t$,
+where $h \in \{0, 1\}$ is the priority class of the user.
+$v_i$ is communicated by each $i$ to $\mathcal{P}$ beforehand.
+
+\paragraph{Utility} For any schedule $\phi$ which assigns user $i$ a slot $t$, the utility $u_i(\phi, t)$ for user $i$ is difference between the value $v_i$ and the payment $p_i(\phi, t)$ made by user $i$ to $\mathcal{P}$.
+
+\begin{equation}
+	u_i(\phi, t) = v_i(h, t) - p_i(h, t)
+\end{equation}
+
+\paragraph{Restriction} Any slot $t$ can be assigned to at most one user.
+
+\paragraph{Optimization} Find $\phi$ that maximises the social welfare, which is the sum of utilities $u_i$ of all users, while fulfilling the restrictions.
+
+\begin{equation}
+	\text{maximise} \ \ \textrm{\itshape welfare}\, (\phi) = \sum_{i \in N} u_i(\phi,t) % = \sum_{i \in N} \left(v_i(h, t) - p_i(\phi, t)\right)
+\end{equation}
+
+\paragraph{Scheduler} Function $S$ that maps $\vec{u} = (u_i)_{i \in N}$ to optimal $\phi$.
+
+\paragraph{Goal} A user $i$ when submitting the request to $\mathcal{P}$, declares the priority class $h_i$ and value $v_i$, and also the bid amount $b_i$ where applicable.
+When the user behaves truthfully the reported value $v^*_i$ is the same as her inherent value $v_i$.
+We want to ensure that it is in the interest of every $i$ to declare her true value of $v_i$,
+regardless of the declared values $v_j$ for any $j \neq i$. 
+Such a mechanism is said to be truthful in dominant strategy,
+where users have no incentive to misreport their values~\cite{Nisan2001}.
+
+
+\subsection{Pricing Mechanisms}
+\label{sec:model-pricing}
+Given the above model, the prices are calculated for the bandwidth usage according to different mechanisms~\cite{Maille2014}.
+
+\paragraph{Fixed Pricing}
+In the case of fixed usage-based pricing, all the users pay the identical price $c_0$ for each unit of bandwidth consumed, which is constant irrespective of the priority class.
+
+\paragraph{Priority Pricing}
+In the case of priority pricing, users pay according to the priority class $h$. 
+Since in our model, there are only two priority classes $h_0$ and $h_1$, provider $\mathcal{P}$ charges two different prices $c_{h_0}$ and $c_{h_1}$ per unit of bandwidth, respectively.
+
+\paragraph{First-Price Auction}
+In the case of sealed first-price auction, users make different bids $b_i$ depending on their priority class $h$, with high priority requests quoting higher bid amounts in general. 
+Each winning user pays their bid amount.
+
+\begin{equation}
+	p_i(\phi, t) = b_i
+\end{equation}
+
+
+\paragraph{Generalised Second Price (GSP) Auction}
+In a generalised second price (GSP) auction, users make different bids $b_i$ but in this case the winning user pays the amount corresponding to the next highest bidder~\cite{Jana2011}. 
+So the user with the highest bid pays the amount of the second highest bidder, and the second highest bidder pays the amount of the third highest bidder, and so on. 
+
+
+\paragraph{Vickrey-Clarke-Groves (VCG) Auction}
+VCG is a second-price sealed-bid auction based mechanism, which ensures truthfulness and maximum social welfare~\cite{Nisan2001},
+if the provider $\mathcal{P}$ can calculate optimal schedule $\phi$ in polynomial time.
+Each user $i$ provides a bid $b_i$ to $\mathcal{P}$, and given a schedule $\phi$, each user $i$ pays the price $p_i(\phi, t)$ according to:
+
+\begin{equation}
+	p_i(\phi, t) = \sum_{\substack{
+						j!= i \\ 
+						j \in N}} 
+					\left( v_j(h,\phi') - b_j \right) - 
+					\sum_{\substack{
+						j!= i \\ 
+						j \in N}} 
+					\left( v_j(h,\phi) - b_j \right)
+\end{equation}
+
+where $\phi$ and $\phi'$ are the schedules that maximise $\displaystyle\sum_{i \in N} u_i$ while including and excluding the bid $b_i$ by user $i$ from the allocation respectively.
+
+\subsection{Scheduling Algorithm}
+
+We consider a simple scheduling algorithm which applies a greedy approach for mapping users' requests to the available slots.
+Algorithm~\ref{alg:scheduling} shows the scheduling algorithm, where $\mathcal{P}$ assigns the slots to the users in non-increasing order of their reported bids (and corresponding $h_i$ and $v_i$) for the bandwidth resource.
+The prices calculated are dependent on the pricing mechanism, the priority class $h$ of the requests, and the assigned slot $t$ in the schedule $\phi$.
+The runtime of the algorithm is $O(N\, log\, N)$ for $N$ users for the different pricing mechanisms.
+VCG mechanism, however, requires computing $N$ schedules for calculating payments for the $N$ winning bids, so the running time in the case of VCG is $O(N^2\, log\, N)$. % \mathcal{O}
+
+The greedy approach, in general, does not always provide an optimal allocation, which is a pre-requisite for VCG mechanism.
+However, in the case of the model given above and considering the step function we are going to use for $v_i(h, t)$ from Figure~\ref{fig:value_fn}, the greedy approach from Algorithm~\ref{alg:scheduling} always returns an optimal allocation. 
+This can be proven through induction, and can be explained intuitively as follows.
+Selecting the requests with higher bids first (corresponding to higher $h_i$ and $v_i$) will always give the maximum social welfare,
+since the value function in Figure~\ref{fig:value_fn} is non-increasing with time and choosing a bid with lower amount causes a loss in social welfare which cannot be recovered as the time progresses. 
+
+%%NOTE: avoid two arrows on top $\protect\vec{t}$
+
+\begin{algorithm}[tbp]
+	\caption{Scheduling algorithm for $\phi$, allocating $\protect\vec{t}$ slots to $N$ users}
+	\label{alg:scheduling}
+	\small
+	
+\begin{algorithmic}[1]
+\Require List of users  $\vec{n}$, bids  $\vec{b}$, for total $N$ users
+\Ensure List of assigned slots $\vec{t}$, and payments $\vec{p}$ 
+
+\State Sort  $\vec{n}$ users in non-increasing order on their bids  $\vec{b}$
+
+\For {$i = 1, \ldots N $}
+	\State $ \vec{t}[i] \gets \vec{n}[i]$
+	\Comment Assign slots
+\EndFor
+
+\For {$i = 1, \ldots N $}
+	\State $ \vec{p}[i] \gets \text{\emph{payment}}\,(\vec{b}[i],
+	\vec{t}[i])$
+	\Comment Calculate payments
+\EndFor
+
+\end{algorithmic}
+
+\end{algorithm}

@@ -1,0 +1,59 @@
+
+
+
+
+\subsection{Cloudy: Community Cloud-in-a-Box}
+\label{sec:implementation}
+
+%% >> Updated text copied from ComNet'15 paper
+%As we discussed earlier in Section~\ref{sec:background}, 
+We believe that the failure of services gaining traction in community networks was largely due to the difficulty of implementing the services and for the end-users to consume these services. To overcome these issues, we choose to implement the proposed framework as a GNU/Linux distribution, code named Cloudy, to provide a convenient mechanism for developing and consuming cloud services in community networks, with the hope that Cloudy can encourage the adoption and uptake of cloud services among the users.
+
+Cloudy~\cite{Cloudy} is a distribution based on a Debian GNU/Linux aimed at end users to foster the transition and adoption of the community cloud environment~\cite{Jimenez2014,Jimenez2013}. 
+Cloudy is the implemented prototype of our community cloud framework described in Section \ref{sec:design-architecture}. 
+The current prototype of Cloudy implements the modules/layers shown in Figure \ref{fig:cloud-architecture}. A Cloudy instance can be run directly on a bare metal machine or on a virtual machine. Independent of the hardware that Cloudy runs on, connectivity to other Cloudy instances is needed in order to fully exploit the potential of Cloudy.
+
+%\subsection{Cloudy Services}
+Cloudy comprises a number of services, designed to help build cloud-based services in community networks~\cite{Selimi2015Cloud}. 
+Cloudy's main components can be considered a layered stack with services residing both inside the kernel and higher up at the user-level. All of the software included in the Cloudy platform is open-source. All service accesses are assisted and managed through the main panel of the Cloudy GUI. The following three groups classify Cloudy services.
+
+\subsubsection{Infrastructure Services}
+
+Virtualisation is the main enabling technology for cloud computing. As such, providing community network users the resources to deploy virtual machines with a few clicks is a very convenient way to bring the cloud closer to their premises. This allows the non-experienced user to focus on the services and applications themselves rather than on learning how to cope with the underlying infrastructure.
+
+OpenVZ \cite{OpenVZ} is an operating system-level virtualisation technology for Linux based on containers. OpenVZ allows creating multiple secure, isolated  operating system instances called containers (commonly known as VPSs) on a single physical machine enabling better server utilisation and ensuring that applications do not conflict with each other. Each container performs and executes exactly like a stand-alone server (which can have root access, users, IP addressing, memory, files, etc.) and can be started and stopped independently from the others and from the host machine. 
+OpenVZ is the preferred solution for providing virtual machines in Cloudy with low to mid-end hardware as only a negligible portion (1-2\%) of the CPU resources is spent on virtualisation. 
+The Cloudy distribution includes a script that downloads and installs all the required OpenVZ packages in one click and Cloudy instances can be run on the virtual machines created using the OpenVZ Web Panel.
+
+Other virtualisation methods used in Cloudy are LXC and Docker. 
+This approach adds special support for IaaS, as the cloud nodes are able to create multiple virtual machine instances for other purposes in addition to the ones dedicated to Cloudy. The infrastructure services of Cloudy enable resource sharing inside the community network.
+
+\subsubsection{Service Discovery and Network Coordination Services}
+
+Cloudy provides custom decentralised services for network coordination and service discovery. Network coordination ensures visibility between the nodes that participate in the cloud.  Service discovery is a crucial building block in Cloudy for enabling distributed services to be orchestrated to provide platform and application services. Service discovery is based on the network coordination component.
+
+For service discovery, Cloudy includes a customised version of Avahi \cite{Avahi} to provide decentralised service discovery at Layer 2, which is needed to discover other services that will be used to provide higher-level services. The multicast-based design does not allow the Avahi service to reach beyond the local link, which is the case in community networks, where services are spread over different nodes that belong to different broadcast domains. While in this environment, it would not be possible for Avahi packets to be directly exchanged from one node to another; this problem is solved by the network coordination component. 
+
+For the network coordination component, we adopt TincVPN \cite{TincVPN}, a virtual private network (VPN) daemon that uses tunnelling and encryption to create a secure private Layer 2 network between hosts of different domains. This Layer 2 connectivity is needed between nodes, since they may reside on different administrative domains and even be located behind firewalls. The TincVPN is automatically installed and configured on every Cloudy node, ready to be activated. After its activation, a VPN daemon is started in order to reach other Cloudy instances via the established Layer 2 network; thus, Avahi can communicate transparently with other nodes. To easily install and configure a system with TincVPN, a tool called Getinconf \cite{Getinconf} has been developed, which is integrated into Cloudy. 
+
+Cloudy also includes Serf \cite{Serf}, a lightweight tool to announce and discover services in community networks. Serf is a decentralised solution for cluster membership, failure detection, and orchestration. It relies on an efficient and lightweight gossip protocol to communicate with other nodes that periodically exchange messages between each other. This protocol is, in practice, a fast and efficient method to share small pieces of information. An additional by-product of having this service distributed all over the community cloud is that it allows the evaluation of the quality of the point-to-point connections between different Cloudy instances. This way, Cloudy users can decide which service provider to choose based on network metrics, such as round trip time (RTT), number of hops, or packet loss. The combination of Avahi, TincVPN, Getinconf, and Serf in Cloudy facilitates the coordination of the resources and the services in the community cloud.
+
+\subsubsection{User Services}
+   
+\textbf{Platform as a Service (PaaS).}
+Providing attractive platform services to community members, such as a distributed file system, highly available key-value store, file synchronisation, video streaming, video-on-demand, VoIP, network address translation (NAT) traversal support, and many more, is of high importance. 
+
+One of the promising services for storage is Tahoe-LAFS \cite{Zooko}. 
+Tahoe-LAFS is a free, open, and secure cloud storage system. 
+Tahoe-LAFS allows community users to share their storage with other members. A Tahoe-LAFS cluster consists of a set of storage nodes, client nodes, and a single coordinator node called the introducer. The storage nodes connect to the introducer and announce their presence, and the client nodes connect to the introducer to obtain the list of all connected storage nodes \cite{bdcloud}. 
+The configuration of Tahoe-LAFS and the process of deploying a whole storage grid are assisted by the Avahi and Serf service discovery tools using the web interface of Cloudy, where the user only needs to introduce some basic information. The Tahoe-LAFS service can also be used to provide higher-level file sharing applications.
+
+Etcd \cite{Etcd}, a highly available key value store for shared configuration and service discovery, and Syncthing \cite{Syncthing}, an open-source file synchronisation client/server application, are already included in the Cloudy distribution.
+
+\textbf{Software as a Service (SaaS).}
+Cloudy allows the user services to be present inside the community network and to be easily deployed and managed via the Cloudy interface. Users can deploy their preferred services and share them with others. One of these multimedia services included in Cloudy is PeerStreamer \cite{PeerStreamer}, an open source live streaming platform. PeerStreamer includes a streaming engine for the efficient distribution of media streams, a source application for the creation of channels, and player applications to visualise the streams. 
+Streaming is assisted by Cloudy by supporting the user in publishing a video stream or connecting to a peer (assisted by Serf or Avahi). 
+Services that enable users to find and watch video content on-demand at any time, such as Gvod \cite{gvod}, 
+a decentralised search service, such as Sweep \cite{Sweep},
+and a distributed key-value store, such as CaracalDB \cite{CaracalDB} 
+are additional services that are part of the Cloudy.

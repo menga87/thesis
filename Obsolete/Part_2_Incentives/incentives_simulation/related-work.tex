@@ -1,0 +1,24 @@
+
+
+% Section: RELATED WORK
+\section{Related Work}
+\label{sec:related-work}
+
+After the prevalence of public clouds~\cite{Armbrust2009}, there is now increasing interest in providing cloud services by harvesting excess resources from the idle machines connected to the Internet~\cite{Marinos2009}. 
+Having different service level requirements and conditions, different solutions for how resources are contributed to build clouds have been found. Commercial clouds have dedicated resources that are financed by the users who pay in hard currency to use the cloud services.
+Previous distributed multi-owned computing platforms like Seti@Home~\cite{Anderson2002}, HTCondor~\cite{Thain2005} and Seattle~\cite{Cappos2009} have relied on altruistic contribution of volunteer users. 
+PlanetLab~\cite{Chun2003} requires for granting resource usage a prior fixed contribution before the services are made available.
+None of these cases, however, correspond to the concrete situation of community networks.
+In order to build a cloud platform within a community network, there is a need to create incentives to encourage active participation from the members of the community. 
+
+Various incentive mechanisms have been studied for P2P and decentralised systems that address different requirements for ensuring a sustainable volunteer-based system~\cite{Zhang2010}.
+P2P systems like BitTorrent~\cite{Cohen2003} incentivise using reciprocity based schemes where users consume resources in proportion to their contribution.
+Most of these schemes do not take heterogeneity and varying capacity of different nodes into account so nodes with limited capacity are at a disadvantage because they do not benefit as much from the system even though they may be actively contributing to the system.
+Recent work in cloud systems have also employed similar reciprocity based schemes, for example, Cloud@Home project~\cite{Distefano2012} envisages ensuring Quality of Service (QoS) using a rewards and credit system.
+Fixed contribution schemes~\cite{Chun2003} need centralised management which are not suitable and scalable for decentralised systems like community networks.
+Monetary based schemes~\cite{Punceva2013, Roovers2011, Petri2010, Toka2007} are founded on economic models and need careful micromanagement which makes it complicated to implement for a large decentralised system like community networks.
+
+Regarding the different incentive schemes, our approach takes advantage of elements of the monetary-payment scheme, in the sense that credits are used to reflect the interchange of resources between consumers and providers. 
+These credits are part of the components of the incentive mechanism that we propose for community clouds. 
+We notice that none of the found related work focus on wireless community networks such as targeted by us.
+

@@ -1,0 +1,28 @@
+
+
+% Section: DISCUSSION
+\subsection{Discussion}
+\label{sec:prototype-discussion}
+
+From the simulation experiments (\Cref{sec__incentivise_evaluation_simulation}) we find that
+the effort-based resource regulation succeed in not only ensuring high system utilisation, 
+but they also ensure fairness when rewarding users for their contributions.
+Following on from the insights through the simulation experiments,
+we implemented a prototype and from the results through its deployment in Guifi.net community network (\Cref{sec__incentivise_evaluation_prototype}),
+we observe that:
+
+\begin{enumerate}
+
+   \item The prototype of the regulation service deployed in real community network nodes performed the required operations. 
+   Its components worked correctly both in the ON's host operating system (OpenWRT) and the SN's operating system (Debian). 
+   We could not observe the limitations of our implementation within scales that are realistic for community networks. 
+   We note however that as a continuation of this work, a more extensive deployment of several federated community clouds with real users and real usage should ultimately be undertaken.  
+   
+   \item The algorithm used for the regulated resource allocation controlled the VM assignments, taking into account the user's contribution and usage. 
+   More complex situations, however, should be created in further studies to provide additional insight into how the system behaves.
+   
+   \item Our experiments were carried out on limited number of nodes and for limited time.
+   If our prototype was deployed on additional nodes that are geographically widely spread and run for extended periods, the VM assignment decisions might need to take into account information from network awareness to select the appropriate cloud resource providers.
+   
+\end{enumerate}
+

@@ -1,0 +1,170 @@
+% School name and location
+\university{Universitat Politècnica de Catalunya}
+\universitycity{Barcelona}
+\universitystate{Spain}
+
+% School color found from university's graphic identity site:
+% https://www.upc.edu/comunicacio/eines/identitat/decarrega-arxius-grafics/
+\definecolor{SchoolColor}{rgb}{0.0.161, 0.447, 0.663} % blue #2972a9 
+\definecolor{chaptergrey}{rgb}{0.0.161, 0.447, 0.663} % blue #2972a9 
+%\definecolor{chaptergrey}{rgb}{0.130, 0.372, 0.552} % darker a bit #215e8c
+\definecolor{midgrey}{rgb}{0.4, 0.4, 0.4}
+
+\hypersetup{
+    colorlinks=false,
+    citecolor=SchoolColor,
+    filecolor=black,
+    linkcolor=black,
+    urlcolor=SchoolColor,
+}
+
+% Formatting guidelines found in:
+% http://gsas.nyu.edu/docs/IO/4474/formattingguide.pdf
+
+\renewcommand{\frontmatter}{
+	\pagenumbering{roman}
+	\input{frontmatter/personalize}
+	\maketitle
+	\copyrightpage
+%	\frontispiece
+	\dedicationpage
+	\acknowledgments
+%	\preface
+	\abstractpage
+
+	\input{frontmatter/publications}
+	\addcontentsline{toc}{chapter}{List of Publications}
+
+	\tableofcontents
+
+	% figure listing - required if you have any figures
+	\listoffigures
+	\phantomsection
+	\addcontentsline{toc}{chapter}{List of Figures}
+	
+	% table listing - required if you have any tables
+	\listoftables
+	\phantomsection
+	\addcontentsline{toc}{chapter}{List of Tables}
+	
+	% algorithms listing - required if you have any algorithms
+	\listofalgorithms
+	\phantomsection
+	\addcontentsline{toc}{chapter}{List of Algorithms}
+
+	% appendix listing - required only if you have two or more appendices
+	% \newpage
+	% \thispagestyle{empty}
+	% \phantomsection
+	% \addcontentsline{toc}{chapter}{List of appendices}
+	% \chapter*{List of appendices}
+	% \contentsline {chapter}{Appendix A}{\pageref{AppendixA}}{}
+
+	\newpage
+	\cleardoublepage
+	\setcounter{page}{1}
+	\pagenumbering{arabic}
+}
+
+\renewcommand{\maketitle}{
+	\thispagestyle{empty}
+	{
+	\noindent
+	\centering
+	\vspace*{-3cm}
+	\begin{minipage}[t]{0.5\textwidth}
+		\includegraphics[width=\textwidth]{UPC_Logo}
+	\end{minipage}
+	\hspace{2.0cm}
+	\begin{minipage}[t]{0.25\textwidth}
+		\includegraphics[width=\textwidth]{IST_A_RGB_POS}
+	\end{minipage}
+	\vspace{4cm}
+	}
+	\vspace*{\fill}
+%	\vspace{55pt}
+	\begin{center}
+	\Huge {\setstretch{1.5} \textcolor{SchoolColor}{\thetitle}} \normalsize \\
+	\vspace{50pt}
+	\Large \textsc{\theauthor} \normalsize  \\
+	\vspace{40pt}
+	\sc
+	  a dissertation\\
+	  presented to the faculty\\
+	  of \@university\\
+	  in candidacy for the degree\\
+	  of \@degree\\
+
+	  \vspace{35pt}
+	  recommended for acceptance\\
+	  by the Department of\\
+		\@department\\
+		\vspace{25pt}
+	  Advisors: ~ \@coadvisorOne\ ~ \& ~ \@coadvisorTwo \\
+		\vspace{15pt}
+	  \@degreemonth\ \@degreeyear
+	\rm
+	\end{center}
+	\vspace*{\fill}
+}
+
+\newcommand{\copyrightpage}{
+	\newpage
+	\thispagestyle{empty}
+	\vspace*{\fill}
+	\scshape \noindent \small \copyright \small 2016\hspace{3pt}-- \theauthor \\
+	\noindent all rights reserved.
+	\vspace*{\fill}
+	\newpage
+	\rm
+}
+
+\newcommand{\frontispiece}{
+	\newpage
+	\thispagestyle{empty}
+	\vspace*{\fill}
+	\begin{center}
+    \includegraphics[width=45pt]{UPC_Logo}
+	\end{center}
+	\vspace*{\fill}
+}
+
+\newcommand{\dedicationpage}{
+	\setcounter{page}{1}
+	\newpage
+	\thispagestyle{empty}
+	\vspace*{\fill}
+	\scshape \noindent \begin{flushright} \input{frontmatter/dedication} \end{flushright}
+	\vspace*{\fill}
+	\newpage
+	\rm
+}
+
+\newcommand{\acknowledgments}{
+	\phantomsection
+	\addcontentsline{toc}{chapter}{Acknowledgments}
+	\chapter*{Acknowledgments}
+	\noindent
+	\input{frontmatter/acknowledgments}
+%	\vspace*{\fill} % there is another vfill inside thanks.tex
+	\newpage
+}
+
+\newcommand{\preface}{
+	\phantomsection
+	\addcontentsline{toc}{chapter}{Preface}
+	\chapter*{Preface}
+	\input{frontmatter/preface}
+}
+
+\newcommand{\abstractpage}{
+	\phantomsection
+	\addcontentsline{toc}{chapter}{Abstract}
+	\chapter*{Abstract}
+	\input{frontmatter/abstract}
+	\cleardoublepage
+	\input{frontmatter/abstract_es}
+	\cleardoublepage
+	\input{frontmatter/abstract_pt}
+	\cleardoublepage
+}

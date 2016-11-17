@@ -1,0 +1,106 @@
+
+\subsection{Community Cloud Use Cases in Enterprise}
+\label{sec__community_clouds_enterprise}
+
+Enterprises belonging to the same sector often use similar but independent cloud solutions, and comparing these solutions, it can be seen that these clouds are optimised in similar aspects which allow these enterprises to gain advantages for reaching common goals. 
+Instead of these private clouds, building a community cloud for such enterprises shares the cost of the cloud solutions among them, and may also offer collaborations for mutual benefit even among competitors.
+We look at the different aspects of existing community cloud solutions and study how they address specific requirements of the community they are designed to serve.
+%We identify in the following some user communities for which community cloud solutions are used,
+%and some successful usecases of community clouds are summarised in \Cref{tab__cloud_users}.
+\Cref{tab__cloud_users} summarises some of the successful usecases of community clouds.
+
+\subsubsection{Governmental Organizations}
+The prime motivation for community cloud for organizations and departments working with government services is the privacy issue over citizen's data, which cannot be stored or processed in public clouds.
+There are many regulations for working with private data, for example U.S. International Traffic in Arms Regulations (ITAR), Federal Risk and Authorization Management Program (FedRAMP), Federal Information Processing Standard (FIPS) and Federal Information Security Management Act (FISMA) in United States, Data Protection Act in United Kingdom, and Data Protection Directive in European Union.
+To address these concerns, Amazon in US has set up an isolated cloud infrastructure for government agencies and their customers which is separate from public cloud offerings from Amazon, which is accredited by FedRAMP for dealing with private and sensitive data. %http://aws.amazon.com/govcloud-us/
+SolaS Secure Community Cloud also places a strong emphasis on security using perimeter networking Demilitarised Zone (DMZ) and distinct virtual data centers (VDCs) using virtualization firewall capability to offer complete logical separation for data and applications.
+%http://www.lockheedmartin.com.es/us/products/community-cloud.html
+IBM has similarly set up dedicated Federal Data Centers (FDC) that can ensure certified computing capabilities for government organizations. %http://www-304.ibm.com/industries/publicsector/us/en/contentemplate1/!!/xmlid=207581
+
+\subsubsection{Financial Industry}
+For financial industry applications, security and privacy of data is important as any other cloud-based solutions, but the driving factor behind community cloud for this market is challenging demands on the services performance.
+For instance, public clouds are too slow to support the applications for high performance electronic trading.
+NYSE Technologies has addressed this problem by setting up customised infrastructure, highly secure data centres and high-speed network to meet high performance and security demands of the applications for the financial industry. %https://nysetechnologies.nyx.com/en/infrastructure-solutions/compute-services/community-platform
+This secure and high performance infrastructure allows to develop and deploy sophisticated applications for financial industry, which are not feasible within public clouds.
+
+\subsubsection{Health Industry}
+The prime issue for organization in health sector preventing them from using public cloud is the privacy of sensitive data of patients and related information.
+The storage and usage of this data is governed by strict government regulations like Health Insurance Portability and Accountability Act (HIPAA) in United States, Privacy Act 1988 in Australia, and similar data protection regulations in United Kingdom, European Union and many other countries.
+Optum in United States provides cloud solutions for health sector and ensures compliance with HIPAA and other federal data protection laws. 
+Another advantage resulting from community cloud is that Optum can offer data analytics from historic and real-time data to support decision making and other application for improving patients' healthcare.
+%http://www.optuminsight.com/streamline-operations/physicians/health-care-cloud/the-optum-health-care-cloud/overview
+
+\subsubsection{Aviation Industry}
+The main need of the aviation industry is to have customised, flexible and on-demand applications and software that can assist with industry and business process optimization and enable operational agility for growth and cost savings.
+SITA with its strong background of working in air transport industry has developed ATI cloud for aviation industry addressing their needs with specifically tailored cloud applications, the high-performance architecture and strong SLA guarantees. 
+%https://www.sita.aero/products-solutions/solutions/ati-cloud
+
+\subsubsection{Media Industry}
+Media production is a collaborative task often carried out within an ecosystem of partners. 
+For content production, media companies need to apply low-cost and agile solutions to be efficient. 
+For instance, computer game development companies make use of cloud infrastructures to transfer huge files efficiently. 
+Sharing of content between partners allows collaborative and faster decision making. 
+A community cloud allows fast exchange of digital media content and deploys services for specific B2B workflow executions to simplify media content production. 
+Examples for such clouds include IGT Cloud from IGT and CA Technologies and Media Community Cloud from Siemens.
+
+%For More information, refer to these links:
+%http://www.igt.com/us-en/systems/igt-cloud.aspx
+%http://www.sourcingfocus.com/uploaded/documents/Siemens_Community_Clouds_Whitepaper.pdf
+
+\subsubsection{ICT Services Providers}
+Community clouds have been applied by Internet, Mobile, and Telecom services providers.
+Examples include clouds for service providers taking advantage of customer-premises equipment (CPE) or network edge devices for improving delivery of services, or better utilisation of provider's facilities.
+Cases were reported from Telef\'{o}nica pooling together Wi-Fi of different customers to provide higher bandwidth, an idea that can be extended to providing other services like video-on-demand as well. 
+This model also helps for Content Distribution Networks (CDN) in that this can allow to distribute content efficiently for users. 
+For the latter, Ericsson is looking at placing cloud nodes at the base stations which provides the flexibility of cloud model for networking services.
+This idea builds on the concepts of software defined networking (SDN) and network virtualization. 
+These examples show that interesting cloud based solutions can be developed in the future that make use of a federation of a large number of smaller cloud installations set up either at service providers' or consumers' end.
+%, even though the research in this area has not matured yet.
+
+%For More information, refer to these links: 
+%http://www.tid.es/en/Research/Pages/TIDProjectProfile.aspx?Project=ClubWiFi\%3a+Increasing+wireless+bandwidth+and+coverage+at+home
+%http://www.ericsson.com/ourportfolio/products/cloud-system
+
+\subsubsection{Higher Education Institutions}
+Departments and schools within universities share the use of IT for teaching, learning and research. 
+From an administrative perspective, these units are often independent while needing similar services. 
+Through a community cloud, management and configuration of servers can be shared and becomes more cost-effective, while the accounting service of the community cloud allows that the consumed services are chargeable to each member of the community. 
+Examples of community clouds in higher education include Online Research Database Service (ORDS) offered by University of Oxford to the institutions in United Kingdom.
+
+%For More information, refer to these links:
+%http://vidaas.oucs.ox.ac.uk/
+%http://ords.ox.ac.uk/
+%http://communities.vmware.com/servlet/JiveServlet/previewBody/3717-102-1-2663/oxford.pdf
+
+\subsubsection{Scientific Research Organizations} 
+Scientific research is also benefiting from bringing together computing resources across the organizations.
+This is seen as the extension of earlier Grid computing systems~\cite{Foster2003}, where organizations share their clusters and private clouds with others and reap the benefits of having greater resource availability on demand. 
+Another approach also followed in some projects is the use of voluntary computing systems to form a community cloud that makes use of resources contributed by users connected to Internet to solve research problems~\cite{Cappos2009}.
+
+\majorin{}{Look for any citable white papers or surveys, else put web links in References.}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%% TABLE
+\begin{table}[tbp]
+    \renewcommand{\arraystretch}{1.3}
+    \caption{Community cloud success stories}
+    \label{tab__cloud_users}
+    \centering
+    \footnotesize
+    
+    \begin{tabular}{@{} l  l @{}}
+    \hline
+    Community	    & Solutions \\ \hline
+    
+    Government Agencies	&   UK's G-Cloud, EU's Cloud for Europe, Amazon's GovCloud, \\
+    							& IBM's Federal Community Cloud,  Lockheed Martin's SolaS Secure Community Cloud    \\
+    Healthcare Industry	&	Optum's Health Care Cloud	\\
+    Financial Services Industry	&	NYSE Technologies' Capital Markets Community Platform, CFN Services' Global Financial Services Cloud \\
+    Media Industry	&	Siemens' Media Community Cloud, IGT Cloud	\\
+    Aviation Industry	&	SITA's ATI Cloud	\\
+    Higher Education	&	Oxford's Online Research Database Service \\
+    Telecom Industry	&	Ericsson Cloud System \\
+    \hline
+    \end{tabular}
+\end{table}

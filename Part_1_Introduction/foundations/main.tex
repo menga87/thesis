@@ -1,0 +1,33 @@
+
+\documentclass[../../main.tex]{subfiles}
+\begin{document}
+
+%%%% This is copied from Wiley Encyclopaedia chapter. %%%%
+%%%% This is copied from CloudNet 2015 short survey paper. %%%%
+
+\chapter{Middleware for Resource Regulation in Community Clouds}
+\label{chap__foundations}
+
+%% *** Introduction
+\subimport*{\main/Part_1_Introduction/foundations/}{introduction}
+
+%% *** Community Network Clouds
+\subimport*{\main/Part_1_Introduction/foundations/}{community_clouds}
+
+%% *** Architecture for Community Network Clouds
+\subimport*{\main/Part_1_Introduction/foundations/}{cloud_architecture}
+
+%% *** Motivation for next 2 chapters
+\subimport*{\main/Part_1_Introduction/foundations/}{incentives_motivation}
+
+% *** Section: Conclusion
+\subimport*{\main/Part_1_Introduction/foundations/}{conclusion}
+
+\iftoggle{enable_chapter_bib} { %%%
+	\printbibliography
+}
+
+\cleardoublepage
+
+% that's all folks
+\end{document}

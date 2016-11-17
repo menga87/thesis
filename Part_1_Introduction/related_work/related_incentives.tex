@@ -1,0 +1,57 @@
+
+
+% Section: RELATED WORK
+\section{Incentives}
+\label{sec__incentives_related_work}
+
+Many volunteer and distributed platforms appeal to users' altruistic instincts. 
+Projects like 
+	SETI@Home~\cite{Anderson2002}, 
+	BOINC~\cite{Anderson2004}, and
+	Folding@home~\cite{Beberg2009}
+propose to solve challenging scientific problems, which encourage users to contribute the idle resources of their machines.
+Other projects like PlanetLab~\cite{Chun2003} and various Grid systems~\cite{Foster2003} require
+some mutually-agreed upon level of contribution as a pre-condition for participating in the system.
+
+Other earlier popular peer-to-peer (P2P) file sharing programs like Kazaa, Gnnutella, Napsters, and eMule among others~\cite{Rodrigues2010}, 
+allowed users to upload and download files for free, % as in \emph{gratis}, 
+and often suffered from the issues like free riding, under-provisioning, etc. 
+This has led to designing incentive mechanisms in P2P systems to ensure that users actively contribute. 
+For example, BitTorrent, using reciprocity principle, only allows users to download content
+if they also upload part of it to other BitTorrent users. 
+Similar incentive mechanisms have been extensively studied for other P2P systems~\cite{Babaioff2007, Shen2010, Zhang2010}.
+
+Community networks are also based on the principle of reciprocal sharing, 
+and offer various tangible and intangible benefits to their users.
+Bina and Giaglis~\cite{Bina2006} have explored various psychological and 
+social motivations of the users of AWMN community network. 
+Reciprocal resource sharing is, in fact, part of the membership rules 
+or peering agreements~\cite{PicoPeering2005} of many community networks. 
+The Wireless Commons License (WCL)~\cite{WCL2010} of many community networks states 
+that the network participants that extend the network, e.g.~contribute new nodes, 
+will extend the network in the same WCL terms and conditions, 
+allowing traffic of other members to transit on their own network segments. 
+Therefore, resource sharing in community networks from the equipment perspective 
+refers in practice to the sharing of the nodes' bandwidth. 
+This sharing, done in a reciprocal manner, enables the traffic from other nodes 
+to be routed over the nodes of different node owners, and 
+allows community networks to successfully operate as IP networks.
+
+Most of these incentive mechanisms are based on the idea of reciprocating individual's \emph{contribution}, 
+anybody who contributes more value to the system is allowed to reap more benefits from it.
+However, this does not take into account that in many cases not all users are as rich in resources as others. 
+Participatory Economics (Parecon) model envisions rewarding the users 
+based on their effort, which is defined as contribution as a fraction of their capacity, 
+instead of rewarding purely on the basis of their absolute contribution~\cite{Albert2004Parecon}. 
+Effort-based incentives~\cite{Rahman2010, Vega2013Sharing, Vega2015Thesis} 
+have been proposed based on Parecon principle to achieve fairness and 
+improve social welfare, while better addressing the resource heterogeneity in the system. 
+For instance, Rahman et al.~\cite{Rahman2010} apply effort-based incentives for file sharing in BitTorrent 
+where some users with slow Internet connections cannot upload as much content as others. 
+When deciding how much a user can download, they propose factoring in user's connection speed 
+in addition to the data the user has uploaded.
+Their results show that the effort-based mechanism remains incentive-compatible 
+and improves efficiency and fairness as compared to purely contribution-based approach.
+We also turn to effort-based incentives in \Cref{chap__trusted_auction} 
+when devising mechanisms for resource sharing between the users of community network clouds.
+

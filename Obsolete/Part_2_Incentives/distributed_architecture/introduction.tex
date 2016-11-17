@@ -1,0 +1,63 @@
+
+% Section: ARCHITECTURE
+
+\section{Community Cloud Framework and Services}
+\label{sec:design}
+
+%% >> Updated text copied from ComNet'15 paper
+%A community network is owned by the community and the nodes are managed independently by their owners. As a result, the network devices or nodes in a community network vary widely in their capacity, function and capability. Some hardware is used as super nodes (SNs) that have multiple wireless links and connect with other SNs to form the backbone of the community network, which is usually intended to be stable with permanent connectivity. 
+%Others act as client nodes and are only connected to the access point (AP) of an SN as demonstrated in Figure \ref{fig:community-network}. 
+%A topological analysis of the Guifi.net community network~\cite{Vega2012} indicates that from approximately 17,000 analysed nodes of Guifi.net, 7\% are SNs while the others are client nodes.
+%
+%\begin{figure}[tbp]
+%	\centering
+%	\includegraphics[width=3.1in,keepaspectratio]{cloud1.png}
+%	\caption{Nodes in a community network with cloud resources}
+%	\label{fig:community-network}
+%\end{figure} 
+%
+%From the node types illustrated in Figure~\ref{fig:community-network}, it can be seen that the hardware for computation and storage is already predominantly available in community networks, consisting of servers (e.g., home gateways, laptops etc.) attached to the networking nodes. 
+%No cloud software or services, however, are yet deployed in community networks to use this hardware as a cloud, leaving the community network services significantly behind the current standard of the Internet. 
+
+Our vision is that community wireless routers will tend to have cloud resources attached, in order to build the infrastructure for a community cloud formed by several cloud resources distributed among several nodes. 
+We note that the contributed cloud resources could be principally located at client nodes, where the actual users of the community network exist. 
+Based on the structure, topology, and socio-technical characteristics of community networks, we identify a community cloud consisting of multiple local clouds, where an management \enquote{super} node is responsible for the management of a set of attached nodes contributing cloud resources. 
+%These multiple local clouds are then connected to form a federated community cloud, where SNs connect physically to other SNs through wireless links and logically in an overlay network to other SNs that manage local clouds.
+%
+%
+%
+%% Section: INTRODUCTION
+%\section{Introduction}
+%\label{sec:introduction}
+%
+%The recent developments in information and communication technologies have significantly reduced the barriers for communication, coordination and collaboration for individuals and communities. 
+%This not only gave rise to widely adopted applications like social networking and user-generated content among many others, but infrastructures based on a cooperative model have also been built, for example community wireless mesh networks~\cite{Braem2013}, which gained momentum in early 2000s in response to limited options for network connectivity in rural and urban communities.
+%Using off-the-shelf network equipment and open unlicensed wireless spectrum, volunteers teamed up to invest, create and run wireless networks in their local communities as an open telecommunication infrastructure based on self-service and self-management by the users. 
+%These community networks have proved quite successful, for example Guifi.net\footnote{\url{http://guifi.net}} provides wireless and optical fibre based broadband access to more than 20,000 users.
+%Current community networks use mainly wireless technology to interconnect nodes. 
+%With the commoditization of optical fibre, some community networks however have also started providing broadband services combining both technologies.
+%
+%Community networks are a successful case of resource sharing among a collective, where resources shared are not only the networking hardware but also the time, effort and knowledge contributed by its members that are required for maintaining the network. 
+%Resource sharing in community networks from the equipment perspective refers in practice to the sharing of the nodes' bandwidth.  
+%This sharing enables the traffic from other nodes to be routed over the nodes of different node owners, allowing community networks to successfully operate as IP networks.
+%Despite achieving sharing of bandwidth, community networks have not been able to extend this sharing to other computing resources like storage, which is now common practice in today's Internet through cloud computing.
+%There are not many applications and services used by members of community networks that take advantage of resources available within community networks.
+%When members of community network can share and trade resources based on a collaborative cloud computing model, they can provide their excess capacity to others as the demand fluctuates and in return can take advantage of services and applications that were not possible earlier due to the limited resources.
+%
+%The concept of community clouds has been introduced in its generic form before, e.g.~\cite{Mell2011, Marinos2009}, as a cloud deployment model in which a cloud infrastructure is built and provisioned for an exclusive use by a specific community of consumers with shared concerns and interests, owned and managed by the community or by a third party or a combination of both.
+%We refer here to a specific kind of a community cloud in which sharing of computing resources is from within community networks, using the application models of cloud computing in general. 
+%
+We focus in this section on a collaborative distributed architecture for community clouds ~\cite{Khan2014Architecture}, 
+which integrates into the cloud not only the computation and storage hardware contributed to the community network by its members, 
+but also the socio-economic contribution they make to the collective effort in the form of knowledge, time and help.
+Such an architecture tailored to the specific situation and social and economic context of the community networks 
+allows the collaborative cloud services to better fit the demands of local communities, 
+facilitating adoption and uptake of community cloud model.
+%In our earlier work, we have explored how incentive-based resource regulation~\cite{Khan2014Prototyping, Khan2013TowardsIncentives, Buyuksahin2013} and economic policies~\cite{Khan2014Macroeconomic} can affect collaboration among the members of community networks, and how the scalability issues can affect the design of a community cloud system~\cite{Khan2013Clouds}. 
+%We are also building a prototype system to be deployed in Guifi.net community network~\cite{Jimenez2014, Jimenez2013}, and investigating the performance of cloud services in these real-world settings~\cite{Selimi2014Experiences, Selimi2014TowardsApplication, Selimi2014Cloud}.
+%
+%The rest of the paper is organised as follows.
+%Section~\ref{sec:related-work} presents related work, and section~\ref{sec:requirements} discusses the requirements for a community cloud.
+%Section~\ref{sec:design} presents the distributed architecture with support services taking into account socio-economic context of the community networks necessary for encouraging collaborative resource sharing.
+%Section~\ref{sec:deployment} details the prototype deployment in the community network testbed and presents results from experiments into collaborative cloud services.
+%Section~\ref{sec:conclusion} concludes and discusses future research directions.
